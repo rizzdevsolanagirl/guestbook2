@@ -2,6 +2,7 @@ import { AppWalletProvider } from '@/components/auth/unified-wallet-provider'
 import { Header } from '@/components/common/header'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { ReactNode } from 'react'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: ReactNode
 }>) {
   return (
     <html lang="en">

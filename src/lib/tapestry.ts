@@ -1,5 +1,13 @@
-import { ICreateCommentInput, ICreateCommentResponse } from '@/models/comment.models'
-import { IProfileResponse } from '@/models/profile.models'
+import {
+  ICreateCommentInput,
+  ICreateCommentResponse,
+} from '@/models/comment.models'
+import {
+  IGetSocialResponse,
+  IProfileResponse,
+  ISuggestedProfiles,
+} from '@/models/profile.models'
+
 import { FetchMethod, fetchTapestry } from '@/utils/api'
 
 export const createProfile = async ({
@@ -19,8 +27,6 @@ export const createProfile = async ({
     },
   })
 
-  console.log(createProfileResponse)
-
   return createProfileResponse
 }
 
@@ -29,7 +35,7 @@ export const getSuggestedProfiles = async ({
 }: {
   ownerWalletAddress: string
 }) => {
-  const response = await fetchTapestry<any>({
+  const response = await fetchTapestry<ISuggestedProfiles[]>({
     endpoint: `profiles/suggested/${ownerWalletAddress}`,
   })
 
@@ -48,7 +54,7 @@ export const getProfileInfo = async ({ username }: { username: string }) => {
 }
 
 export const getProfilesList = async ({}: {}) => {
-  return await fetchTapestry<any>({
+  return await fetchTapestry<IGetSocialResponse>({
     endpoint: `profiles`,
   })
 }
@@ -73,20 +79,21 @@ export const createComment = async ({
   profileId,
   contentId,
   text,
-  commentId
+  commentId,
 }: ICreateCommentInput) => {
-  const createCommentResponse = await fetchTapestry<ICreateCommentResponse, ICreateCommentInput>({
+  const createCommentResponse = await fetchTapestry<
+    ICreateCommentResponse,
+    ICreateCommentInput
+  >({
     endpoint: 'comments',
     method: FetchMethod.POST,
     data: {
       contentId,
       profileId,
       text,
-      commentId
+      commentId,
     },
   })
-
-  console.log(createCommentResponse)
 
   return createCommentResponse
 }

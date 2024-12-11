@@ -23,7 +23,6 @@ export async function Profile({ username }: Props) {
             username={username}
             walletAddress={data.walletAddress || ''}
           />
-
           <p>
             {data.socialCounts.followers} followers |{' '}
             {data.socialCounts.following} following

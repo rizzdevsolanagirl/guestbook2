@@ -19,7 +19,7 @@ export function FollowButton({ username }: Props) {
 
   const { followers } = useGetFollowers(username)
 
-  const followersList = followers?.map((item) => item.username)
+  const followersList = followers?.profiles?.map((item) => item.username)
 
   const handleFollow = async () => {
     if (mainUsername && username) {
@@ -36,6 +36,10 @@ export function FollowButton({ username }: Props) {
 
   if (followersList?.includes(mainUsername)) {
     return <UserRoundCheck size={20} />
+  }
+
+  if (mainUsername === username) {
+    return null
   }
 
   return (
