@@ -23,7 +23,7 @@ export const createProfile = async ({
     data: {
       walletAddress: ownerWalletAddress,
       username,
-      blockchain: 'Solana',
+      blockchain: 'SOLANA',
     },
   })
 

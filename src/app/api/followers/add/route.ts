@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     }
 
     const bodyData = {
-      blockchain: 'solana',
+      blockchain: 'SOLANA',
       startId: followerUser.username,
       endId: followeeUser.username,
       properties: [],
