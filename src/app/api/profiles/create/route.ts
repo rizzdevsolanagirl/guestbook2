@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
       data: {
         walletAddress: ownerWalletAddress,
         username,
-        blockchain: 'Solana',
+        blockchain: 'SOLANA',
       },
     })
 

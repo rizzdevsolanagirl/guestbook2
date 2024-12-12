@@ -2,13 +2,13 @@
 
 import { Button } from '@/components/common/button'
 import { Card } from '@/components/common/card'
-import { IFollower } from '@/models/followers.models'
+import { IGetSocialResponse } from '@/models/profile.models'
 import Link from 'next/link'
 import { useState } from 'react'
 
 interface Props {
-  following: IFollower[]
-  followers: IFollower[]
+  following: IGetSocialResponse
+  followers: IGetSocialResponse
 }
 
 export function FollowList({ following, followers }: Props) {
@@ -32,7 +32,7 @@ export function FollowList({ following, followers }: Props) {
           </Button>
         </div>
         <div className="h-[200px] overflow-auto">
-          {(followingListSelected ? following : followers).map(
+          {(followingListSelected ? following : followers)?.profiles.map(
             (item, index) => (
               <ul key={index} className="list-disc list-inside">
                 <ListEntries key={index} username={item.username} />
@@ -41,7 +41,6 @@ export function FollowList({ following, followers }: Props) {
           )}
         </div>
       </Card>
-      <Card className="w-1/2 flex items-center justify-center">🔜</Card>
     </div>
   )
 }

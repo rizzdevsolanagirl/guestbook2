@@ -18,11 +18,11 @@ export async function POST(req: NextRequest) {
     }
 
     const bodyData = {
-      shouldWriteOnChain: true,
-      blockchain: 'Solana',
+      blockchain: 'SOLANA',
       startId: followerUser.username,
       endId: followeeUser.username,
       properties: [],
+      execution: 'FAST_UNCONFIRMED',
     }
 
     const response = await fetchTapestry({

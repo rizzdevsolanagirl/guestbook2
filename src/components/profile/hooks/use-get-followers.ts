@@ -1,7 +1,8 @@
+import { IGetSocialResponse } from '@/models/profile.models'
 import { useEffect, useState } from 'react'
 
 export const useGetFollowers = (username: string) => {
-  const [followers, setFollowers] = useState<any[]>([])
+  const [followers, setFollowers] = useState<IGetSocialResponse>()
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
