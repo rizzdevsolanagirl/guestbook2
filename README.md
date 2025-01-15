@@ -1,6 +1,6 @@
 # Tapestry Protocol Template
 
-This is a [Tapestry](https://www.usetapestry.dev/) template repository that demonstrates key features of the Tapestry Protocol. Use this as a starting point for integrating social features into your Solana dApp.
+This is a Next.js application that demonstrates key features of the [Tapestry](https://www.usetapestry.dev/) Protocol. Use this as a starting point for integrating social features into your Solana dApp.
 
 🔑 **Get API Key**: [app.usetapestry.dev](https://app.usetapestry.dev)  
 📚 **API Reference**: [docs.usetapestry.dev/api](https://docs.usetapestry.dev/api)
