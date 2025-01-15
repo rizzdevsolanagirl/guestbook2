@@ -1,6 +1,6 @@
-# Tapestry Protocol Boilerplate
+# Tapestry Protocol Template
 
-This is a [Tapestry](https://www.usetapestry.dev/) boilerplate repository that demonstrates key features of the Tapestry Protocol. Use this as a starting point for integrating social features into your Solana dApp.
+This is a [Tapestry](https://www.usetapestry.dev/) template repository that demonstrates key features of the Tapestry Protocol. Use this as a starting point for integrating social features into your Solana dApp.
 
 🔑 **Get API Key**: [app.usetapestry.dev](https://app.usetapestry.dev)  
 📚 **API Reference**: [docs.usetapestry.dev/api](https://docs.usetapestry.dev/api)
@@ -47,9 +47,8 @@ This is a [Tapestry](https://www.usetapestry.dev/) boilerplate repository that d
 Before you begin, you'll need to get a Tapestry API key:
 1. Visit [app.usetapestry.dev](https://app.usetapestry.dev)
 2. Create an account or sign in
-3. Navigate to the API Keys section
-4. Create a new API key
-5. Copy your API key - you'll need it for the next step
+3. Create a new API key
+4. Copy your API key - you'll need it for the next step
 
 ### 2. Environment Setup
 
@@ -76,6 +75,6 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Tapestry endpoints
+## Tapestry Endpoints
 
 Tapestry endpoints are defined in the file `tapestry.ts`
