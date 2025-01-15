@@ -1,13 +1,63 @@
-This is a [Tapestry](https://www.usetapestry.dev/) boilerplate repository, it's a work in progress - as Tapestry is being developed more features will be added to it. Feel free to clone this repository and use it as a template.
+# Tapestry Protocol Boilerplate
 
-## Getting started
+This is a [Tapestry](https://www.usetapestry.dev/) boilerplate repository that demonstrates key features of the Tapestry Protocol. Use this as a starting point for integrating social features into your Solana dApp.
 
-You'll need to add your api key and the tapestry URL to your environment variables - in the file `.env.local`:
+🔑 **Get API Key**: [app.usetapestry.dev](https://app.usetapestry.dev)  
+📚 **API Reference**: [docs.usetapestry.dev/api](https://docs.usetapestry.dev/api)
+
+## Features
+
+### 1. Profile Management
+- Create new profiles with username and wallet address
+- View profile information including follower/following counts
+- List all profiles in the system
+- Get suggested profiles based on wallet address
+
+**API Endpoints Used:**
+- `POST /profiles/findOrCreate` - Create new profile
+- `GET /profiles/{username}` - Get profile details
+- `GET /profiles` - List all profiles
+- `GET /profiles/suggested/{walletAddress}` - Get suggested profiles
+
+### 2. Social Connections
+- Follow/unfollow other users
+- View followers list
+- View following list
+
+**API Endpoints Used:**
+- `POST /followers/add` - Follow a user
+- `GET /profiles/{username}/followers` - Get user's followers
+- `GET /profiles/{username}/following` - Get user's following list
+
+### 3. Comments
+- Create comments on content
+- Support for nested comments (replies)
+
+**API Endpoints Used:**
+- `POST /comments` - Create new comment
+
+## Getting Started
+
+### 0. Prerequisites
+- Node.js 16+
+- Yarn package manager
+- Solana wallet (Phantom, Solflare, etc.)
+
+### 1. Get Your API Key
+Before you begin, you'll need to get a Tapestry API key:
+1. Visit [app.usetapestry.dev](https://app.usetapestry.dev)
+2. Create an account or sign in
+3. Navigate to the API Keys section
+4. Create a new API key
+5. Copy your API key - you'll need it for the next step
+
+### 2. Environment Setup
+
+Create a `.env.local` file in the root directory: 
 
 ```bash
 TAPESTRY_API_KEY=xxx
 TAPESTRY_URL=https://protocol-server.fly.dev/v1
-
 ```
 
 Install the dependencies
