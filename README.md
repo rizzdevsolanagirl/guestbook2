@@ -26,6 +26,7 @@ This is a Next.js application that demonstrates key features of the [Tapestry](h
 
 **API Endpoints Used:**
 - `POST /followers/add` - Follow a user
+- `POST /followers/remove` - Unfollow a user
 - `GET /profiles/{username}/followers` - Get user's followers
 - `GET /profiles/{username}/following` - Get user's following list
 
