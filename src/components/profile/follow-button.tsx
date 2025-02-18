@@ -4,7 +4,7 @@ import { Alert } from '@/components/common/alert'
 import { Button } from '@/components/common/button'
 import { LoadCircle } from '@/components/common/load-circle'
 import { useFollowUser } from '@/components/profile/hooks/use-follow-user'
-import { useGetFollowers } from '@/components/profile/hooks/use-get-followers'
+import { useGetFollowersState } from '@/components/profile/hooks/use-get-follower-state'
 import { UserRoundCheck } from 'lucide-react'
 import { useCurrentWallet } from '../auth/hooks/use-current-wallet'
 
@@ -17,9 +17,12 @@ export function FollowButton({ username }: Props) {
     useCurrentWallet()
   const { followUser, loading, error, success } = useFollowUser()
 
-  const { followers } = useGetFollowers(username)
+  const { data } = useGetFollowersState({
+    followeeUsername: username,
+    followerUsername: mainUsername || '',
+  })
 
-  const followersList = followers?.profiles?.map((item) => item.username)
+  const isFollowing = data?.isFollowing
 
   const handleFollow = async () => {
     if (mainUsername && username) {
@@ -34,7 +37,7 @@ export function FollowButton({ username }: Props) {
     return null
   }
 
-  if (followersList?.includes(mainUsername)) {
+  if (isFollowing) {
     return <UserRoundCheck size={20} />
   }
 

@@ -11,7 +11,7 @@ export const useFollowUser = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
   const [data, setData] = useState<any>(null)
-  const [success, setSuccess] = useState<boolean>(false) // Ajout de l'état de succès
+  const [success, setSuccess] = useState<boolean>(false)
 
   const followUser = async ({
     followerUsername,

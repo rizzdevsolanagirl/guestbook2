@@ -20,13 +20,13 @@ export function FollowList({ following, followers }: Props) {
         <div className="w-full flex justify-center py-4 space-x-6">
           <Button
             onClick={() => setFollowingListSelected(false)}
-            active={!followingListSelected}
+            variant={!followingListSelected ? 'secondary' : 'default'}
           >
             Followers
           </Button>
           <Button
             onClick={() => setFollowingListSelected(true)}
-            active={followingListSelected}
+            variant={followingListSelected ? 'secondary' : 'default'}
           >
             Following
           </Button>

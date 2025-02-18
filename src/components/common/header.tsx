@@ -18,7 +18,7 @@ export function Header() {
     <div className="flex justify-between w-full mb-12 h-[60px]">
       <h1 className="text-4xl">
         <Link href="/" className="hover:opacity-80">
-          Tapestry Boilerplate
+          Tapestry Template
         </Link>
       </h1>
       <div>

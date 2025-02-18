@@ -1,5 +1,6 @@
 // app/api/profiles/findAllProfiles/route.ts
 
+import { IGetSocialResponse } from '@/models/profile.models'
 import { FetchMethod, fetchTapestry } from '@/utils/api'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -15,7 +16,7 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const data = await fetchTapestry<any>({
+    const data = await fetchTapestry<IGetSocialResponse>({
       endpoint: 'profiles',
       method: FetchMethod.GET,
       data: {

@@ -2,13 +2,10 @@ import {
   ICreateCommentInput,
   ICreateCommentResponse,
 } from '@/models/comment.models'
-import {
-  IGetSocialResponse,
-  IProfileResponse,
-  ISuggestedProfiles,
-} from '@/models/profile.models'
+import { IProfileResponse, ISuggestedProfiles } from '@/models/profile.models'
 
 import { FetchMethod, fetchTapestry } from '@/utils/api'
+import { socialfi } from '@/utils/socialfi'
 
 export const createProfile = async ({
   username,
@@ -53,10 +50,15 @@ export const getProfileInfo = async ({ username }: { username: string }) => {
   }
 }
 
-export const getProfilesList = async ({}: {}) => {
-  return await fetchTapestry<IGetSocialResponse>({
-    endpoint: `profiles`,
-  })
+export async function getProfilesList() {
+  try {
+    return await socialfi.api.profiles.profilesList({
+      page: '0',
+      pageSize: '10',
+    })
+  } catch (error: any) {
+    throw new Error(error.message || 'Failed get profiles')
+  }
 }
 
 export const getFollowers = async ({ username }: { username: string }) => {

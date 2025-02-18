@@ -13,7 +13,9 @@ export function useCurrentWallet() {
 
   const walletAddress = publicKey?.toBase58() || null
 
-  const { profiles, loading } = useGetProfiles(walletAddress || '')
+  const { profiles, loading } = useGetProfiles({
+    walletAddress: walletAddress || '',
+  })
 
   function openWalletConnectModal() {
     setShowModal(true)

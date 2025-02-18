@@ -1,4 +1,4 @@
-import { BLOCKCHAIN, IPaginatedResponse } from '@/models/common.models'
+import { IPaginatedResponse } from '@/models/common.models'
 
 export interface ISocialCounts {
   followers: number
@@ -11,20 +11,36 @@ export interface IProfileResponse {
   socialCounts: ISocialCounts
 }
 
-export interface IProfile {
-  id: string
-  created_at: number
-  username: string
-  bio: string
-  image: string
-  namespace: string
-  blockchain: BLOCKCHAIN
-  isWaitListed?: boolean
+export type IProfile = {
+  profile: {
+    namespace: string
+    id: string
+    username: string
+    crypto: string
+    bio?: string
+    image?: string
+  }
+  wallet: {
+    address: string
+  }
+  namespace: {
+    id: number
+    name: string
+    readableName: string | null
+    faviconURL: string | null
+    created_at: string
+    updatedAt: string
+    isDefault: boolean
+    team_id: number
+  }
 }
 export interface IGetSocialResponse extends IPaginatedResponse {
-  profiles: IProfile[]
+  profiles: IProfile['profile'][]
 }
 
+export interface IGetFollowersStateResponse {
+  isFollowing: boolean
+}
 export interface ISuggestedProfile {
   namespaces: {
     name: string
