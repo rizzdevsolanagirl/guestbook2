@@ -16,7 +16,13 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const data = await fetchTapestry<IGetSocialResponse>({
+    // const response = await socialfi.api.profiles.profilesList({
+    //   walletAddress: walletAddress,
+    //   page: '0',
+    //   pageSize: '10',
+    // })
+
+    const response = await fetchTapestry<IGetSocialResponse>({
       endpoint: 'profiles',
       method: FetchMethod.GET,
       data: {
@@ -24,7 +30,7 @@ export async function GET(req: NextRequest) {
       },
     })
 
-    return NextResponse.json(data)
+    return NextResponse.json(response)
   } catch (error: any) {
     console.error('Error fetching profiles:', error)
     return NextResponse.json(

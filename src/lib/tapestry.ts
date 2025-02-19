@@ -1,52 +1,11 @@
-import {
-  ICreateCommentInput,
-  ICreateCommentResponse,
-} from '@/models/comment.models'
-import { IProfileResponse, ISuggestedProfiles } from '@/models/profile.models'
-
-import { FetchMethod, fetchTapestry } from '@/utils/api'
+import { fetchTapestry } from '@/utils/api'
 import { socialfi } from '@/utils/socialfi'
-
-export const createProfile = async ({
-  username,
-  ownerWalletAddress,
-}: {
-  username: string
-  ownerWalletAddress: string
-}) => {
-  const createProfileResponse = await fetchTapestry({
-    endpoint: 'profiles/findOrCreate',
-    method: FetchMethod.POST,
-    data: {
-      walletAddress: ownerWalletAddress,
-      username,
-      blockchain: 'SOLANA',
-    },
-  })
-
-  return createProfileResponse
-}
-
-export const getSuggestedProfiles = async ({
-  ownerWalletAddress,
-}: {
-  ownerWalletAddress: string
-}) => {
-  const response = await fetchTapestry<ISuggestedProfiles[]>({
-    endpoint: `profiles/suggested/${ownerWalletAddress}`,
-  })
-
-  return response
-}
 
 export const getProfileInfo = async ({ username }: { username: string }) => {
   try {
-    return await fetchTapestry<IProfileResponse>({
-      endpoint: `profiles/${username}`,
-    })
-  } catch (error) {
-    console.error('[getProfileInfo Error]', error)
-    return null
+    return await socialfi.getProfile(username)
+  } catch (error: any) {
+    throw new Error(error.message || 'Failed get profile info')
   }
 }
 
@@ -75,27 +34,4 @@ export const getFollowing = async ({ username }: { username: string }) => {
   })
 
   return response
-}
-
-export const createComment = async ({
-  profileId,
-  contentId,
-  text,
-  commentId,
-}: ICreateCommentInput) => {
-  const createCommentResponse = await fetchTapestry<
-    ICreateCommentResponse,
-    ICreateCommentInput
-  >({
-    endpoint: 'comments',
-    method: FetchMethod.POST,
-    data: {
-      contentId,
-      profileId,
-      text,
-      commentId,
-    },
-  })
-
-  return createCommentResponse
 }

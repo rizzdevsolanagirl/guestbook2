@@ -1,4 +1,4 @@
-import { FetchMethod, fetchTapestry } from '@/utils/api'
+import { socialfi } from '@/utils/socialfi'
 import { NextRequest, NextResponse } from 'next/server'
 
 interface FollowRequestBody {
@@ -17,26 +17,10 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    const bodyData = {
-      blockchain: 'SOLANA',
-      startId: followerUser.username,
-      endId: followeeUser.username,
-      properties: [],
-      execution: 'FAST_UNCONFIRMED',
-    }
-
-    const response = await fetchTapestry({
-      endpoint: 'followers/add',
-      method: FetchMethod.POST,
-      data: bodyData,
-    })
-
-    if (response.error) {
-      return NextResponse.json(
-        { error: response.error || 'Failed to follow user' },
-        { status: 500 },
-      )
-    }
+    const response = await socialfi.followUser(
+      followerUser.username,
+      followeeUser.username,
+    )
 
     return NextResponse.json(response)
   } catch (error: any) {

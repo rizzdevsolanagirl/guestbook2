@@ -22,11 +22,10 @@ export function GetSuggested() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setShowAlert(false) // Reset the alert state on submit
+    setShowAlert(false)
     await getSuggested(ownerWalletAddress)
   }
 
-  // Watch for changes in profiles to trigger the alert if profiles are empty
   useEffect(() => {
     if (profiles && Object.keys(profiles).length === 0) {
       setShowAlert(true)
