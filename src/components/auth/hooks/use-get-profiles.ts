@@ -1,4 +1,4 @@
-import { IProfile } from '@/models/profile.models'
+import { IProfileList } from '@/models/profile.models'
 import { useEffect, useState } from 'react'
 
 interface Props {
@@ -10,7 +10,7 @@ export function useGetProfiles({
   walletAddress,
   shouldIncludeExternalProfiles,
 }: Props) {
-  const [profiles, setProfiles] = useState<IProfile[]>()
+  const [profiles, setProfiles] = useState<IProfileList[]>()
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState(null)
 

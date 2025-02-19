@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const response = await socialfi.api.profiles.suggestedDetail({
+    const response = await socialfi.api.creators.inviteDetail({
       identifier: walletAddress,
     })
 

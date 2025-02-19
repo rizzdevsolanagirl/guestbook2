@@ -1,11 +1,14 @@
-import { useState } from 'react'
+'use client'
+
+import { IProfile } from '@/models/profile.models'
+import { useCallback, useState } from 'react'
 
 export const useSuggested = () => {
-  const [profiles, setProfiles] = useState<any>(null)
+  const [profiles, setProfiles] = useState<IProfile>()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const getSuggested = async (walletAddress: string) => {
+  const getSuggested = useCallback(async (walletAddress: string) => {
     if (!walletAddress) {
       setError('Owner wallet address is required')
       return
@@ -30,7 +33,7 @@ export const useSuggested = () => {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
 
   return {
     profiles,

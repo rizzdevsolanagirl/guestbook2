@@ -1,4 +1,3 @@
-import { fetchTapestry } from '@/utils/api'
 import { socialfi } from '@/utils/socialfi'
 
 export const getProfileInfo = async ({ username }: { username: string }) => {
@@ -21,17 +20,17 @@ export async function getProfilesList() {
 }
 
 export const getFollowers = async ({ username }: { username: string }) => {
-  const response = await fetchTapestry({
-    endpoint: `profiles/${username}/followers`,
-  })
-
-  return response
+  try {
+    return await socialfi.api.profiles.followersDetail({ id: username })
+  } catch (error: any) {
+    throw new Error(error.message || 'Failed get followers list')
+  }
 }
 
 export const getFollowing = async ({ username }: { username: string }) => {
-  const response = await fetchTapestry({
-    endpoint: `profiles/${username}/following`,
-  })
-
-  return response
+  try {
+    return await socialfi.api.profiles.followingDetail({ id: username })
+  } catch (error: any) {
+    throw new Error(error.message || 'Failed get following list')
+  }
 }

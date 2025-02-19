@@ -5,12 +5,12 @@ import { Alert } from '@/components/common/alert'
 import { Card } from '@/components/common/card'
 import { Input } from '@/components/form/input'
 import { SubmitButton } from '@/components/form/submit-button'
-import { useSuggested } from '@/components/get-suggested/hooks/use-suggested'
+import { useSuggested } from '@/components/suggested-and-creators-invite/hooks/use-suggested'
 import { X } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
-export function GetSuggested() {
+export function SuggestedAndCreatorsInvite() {
   const { walletAddress, mainUsername, loadingMainUsername } =
     useCurrentWallet()
   const [ownerWalletAddress, setOwnerWalletAddress] = useState(

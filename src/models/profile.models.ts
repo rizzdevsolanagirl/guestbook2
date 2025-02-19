@@ -11,31 +11,35 @@ export interface IProfileResponse {
   socialCounts: ISocialCounts
 }
 
-export type IProfile = {
-  profile: {
-    namespace: string
-    id: string
-    username: string
-    crypto: string
-    bio?: string
-    image?: string
-  }
+export interface IProfile {
+  id: string
+  namespace: string
+  created_at: number
+  username: string
+  bio?: string | null
+  image?: string | null
+}
+
+export interface INamespace {
+  id: number
+  name: string
+  readableName: string | null
+  faviconURL: string | null
+  created_at: string
+  updatedAt: string
+  isDefault: boolean
+  team_id: number
+}
+
+export type IProfileList = {
+  profile: IProfile
   wallet: {
     address: string
   }
-  namespace: {
-    id: number
-    name: string
-    readableName: string | null
-    faviconURL: string | null
-    created_at: string
-    updatedAt: string
-    isDefault: boolean
-    team_id: number
-  }
+  namespace: INamespace
 }
 export interface IGetSocialResponse extends IPaginatedResponse {
-  profiles: IProfile['profile'][]
+  profiles: IProfile[]
 }
 
 export interface IGetFollowersStateResponse {
@@ -59,4 +63,11 @@ export interface ISuggestedProfile {
 
 export interface ISuggestedProfiles {
   [key: string]: ISuggestedProfile
+}
+
+export interface ISearch {
+  profile: IProfile
+  socialCounts: ISocialCounts
+  walletAddress: string
+  namespaces: INamespace
 }

@@ -22,13 +22,13 @@ export function FollowList({ following, followers }: Props) {
             onClick={() => setFollowingListSelected(false)}
             variant={!followingListSelected ? 'secondary' : 'default'}
           >
-            Followers
+            Followers {followers?.profiles.length}
           </Button>
           <Button
             onClick={() => setFollowingListSelected(true)}
             variant={followingListSelected ? 'secondary' : 'default'}
           >
-            Following
+            Following {following?.profiles.length}
           </Button>
         </div>
         <div className="h-[200px] overflow-auto">
