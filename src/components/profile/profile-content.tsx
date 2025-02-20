@@ -19,8 +19,10 @@ export async function ProfileContent({ username }: Props) {
   return (
     <div>
       <Profile username={username} />
-      <FollowList followers={followers} following={following} />
-      <DisplaySuggestedAndInvite />
+      <div className="flex w-full justify-between space-x-4 mt-4">
+        <FollowList followers={followers} following={following} />
+        <DisplaySuggestedAndInvite />
+      </div>
     </div>
   )
 }

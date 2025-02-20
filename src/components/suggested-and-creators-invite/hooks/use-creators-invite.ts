@@ -1,10 +1,10 @@
 'use client'
 
-import { IProfile } from '@/models/profile.models'
+import { ISuggestedProfile } from '@/models/profile.models'
 import { useCallback, useState } from 'react'
 
 export const useCreatorsInvite = () => {
-  const [profiles, setProfiles] = useState<IProfile>()
+  const [profiles, setProfiles] = useState<ISuggestedProfile[]>()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 

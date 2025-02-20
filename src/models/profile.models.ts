@@ -58,11 +58,11 @@ export interface ISuggestedProfile {
     username: string
     image: string
   }
+  contact: {
+    id: string
+    type: string
+  }
   wallet: { address: string }
-}
-
-export interface ISuggestedProfiles {
-  [key: string]: ISuggestedProfile
 }
 
 export interface ISearch {
