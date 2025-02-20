@@ -1,7 +1,7 @@
 'use client'
 
 import { IGetFollowersStateResponse } from '@/models/profile.models'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 interface Props {
   followeeUsername: string
@@ -16,7 +16,7 @@ export const useGetFollowersState = ({
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
-  const fetchFollowersState = async () => {
+  const fetchFollowersState = useCallback(async () => {
     setLoading(true)
     setError(null)
 
@@ -40,13 +40,13 @@ export const useGetFollowersState = ({
     } finally {
       setLoading(false)
     }
-  }
+  }, [followeeUsername, followerUsername])
 
   useEffect(() => {
     if (followeeUsername && followerUsername) {
       fetchFollowersState()
     }
-  }, [followeeUsername, followerUsername])
+  }, [fetchFollowersState, followeeUsername, followerUsername])
 
   return { data, loading, error, refetch: fetchFollowersState }
 }

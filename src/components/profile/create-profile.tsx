@@ -8,7 +8,7 @@ import { LoadCircle } from '@/components/common/load-circle'
 import { Input } from '@/components/form/input'
 import { SubmitButton } from '@/components/form/submit-button'
 import { useCreateProfile } from '@/components/profile/hooks/use-create-profile'
-import { IProfile } from '@/models/profile.models'
+import { IProfileList } from '@/models/profile.models'
 import { cn } from '@/utils/utils'
 import { User } from 'lucide-react'
 import { useState } from 'react'
@@ -23,7 +23,7 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
 
   const [username, setUsername] = useState('')
 
-  const [selectProfile, setSelectProfile] = useState<IProfile | null>(null)
+  const [selectProfile, setSelectProfile] = useState<IProfileList | null>(null)
 
   const {
     createProfile,
@@ -52,7 +52,7 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
     setUsername(validValue)
   }
 
-  const handleClick = async (profile: IProfile) => {
+  const handleClick = async (profile: IProfileList) => {
     if (!walletAddress) {
       return
     }

@@ -7115,10 +7115,10 @@ smart-buffer@^4.2.0:
   resolved "https://registry.yarnpkg.com/smart-buffer/-/smart-buffer-4.2.0.tgz#6e1d71fa4f18c05f7d0ff216dd16a481d0e8d9ae"
   integrity sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==
 
-socialfi@^0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/socialfi/-/socialfi-0.1.5.tgz#7a21268d3dfd003b5dd57debb767324b730fb5b0"
-  integrity sha512-3DakVdK3oKiz2Ecezq3D4DluG9TXFXRRTiJIzn/ojzsKCHAtupmCgD7DrSQkZNFJZ3enKZXvKKbXpDmImb8G9Q==
+socialfi@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/socialfi/-/socialfi-0.1.6.tgz#9a6dff54f0c3ab0b91c0cc183a85ba5aab599f5b"
+  integrity sha512-XtHpSeKIvNAgQNm6uXBsQgYoe6vObDX/ol9F7vOhkHh2ma7ouSfU5p6kmASTtlxLYuhVZsrRGc8sUEuautTqyw==
   dependencies:
     axios "^1.6.0"
 
