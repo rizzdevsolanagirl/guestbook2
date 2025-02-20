@@ -13,16 +13,10 @@ export const useGetProfilesList = () => {
     setError(null)
 
     try {
-      const response = await fetch('/api/profiles/all-profiles', {
-        headers: { 'Content-Type': 'application/json' },
-      })
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch profiles')
-      }
+      const response = await fetch('/api/profiles/all-profiles')
 
       const result = await response.json()
-      setData(result.profiles || [])
+      setData(result.profiles)
     } catch (err: any) {
       setError(err.message || 'Failed to load profiles')
     } finally {

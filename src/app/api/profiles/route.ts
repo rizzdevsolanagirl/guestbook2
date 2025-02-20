@@ -1,3 +1,4 @@
+import { IProfileList } from '@/models/profile.models'
 import { FetchMethod, fetchTapestry } from '@/utils/api'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -13,7 +14,7 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const response = await fetchTapestry<any>({
+    const response = await fetchTapestry<IProfileList[]>({
       endpoint: 'profiles',
       method: FetchMethod.GET,
       data: {

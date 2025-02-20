@@ -6,7 +6,6 @@ export interface ISocialCounts {
 }
 
 export interface IProfileResponse {
-  [x: string]: any
   walletAddress?: string | undefined
   socialCounts: ISocialCounts
 }
