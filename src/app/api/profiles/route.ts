@@ -1,35 +1,31 @@
-// app/api/profiles/findAllProfiles/route.ts
+import { FetchMethod, fetchTapestry } from '@/utils/api'
+import { NextRequest, NextResponse } from 'next/server'
 
-import { socialfi } from '@/utils/socialfi'
-import { NextResponse } from 'next/server'
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url)
+  const walletAddress = searchParams.get('walletAddress')
 
-// Prevent this route from being built statically
-export const dynamic = 'force-dynamic'
+  if (!walletAddress) {
+    return NextResponse.json(
+      { error: 'walletAddress is required' },
+      { status: 400 },
+    )
+  }
 
-export async function GET() {
   try {
-    if (!process.env.TAPESTRY_API_KEY) {
-      return NextResponse.json(
-        { error: 'API key not configured' },
-        { status: 503 },
-      )
-    }
-
-    const data = await socialfi.api.profiles.profilesList({
-      page: '0',
-      pageSize: '10',
+    const response = await fetchTapestry<any>({
+      endpoint: 'profiles',
+      method: FetchMethod.GET,
+      data: {
+        walletAddress,
+      },
     })
-    return NextResponse.json(data)
+
+    return NextResponse.json(response)
   } catch (error: any) {
     console.error('Error fetching profiles:', error)
-
-    // Handle specific error cases
-    if (error.response?.status === 401) {
-      return NextResponse.json({ error: 'Invalid API key' }, { status: 401 })
-    }
-
     return NextResponse.json(
-      { error: 'Failed to fetch profiles' },
+      { error: error.message || 'Failed to fetch profiles' },
       { status: 500 },
     )
   }

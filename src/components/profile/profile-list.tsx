@@ -1,32 +1,10 @@
 'use client'
 
+import { useGetProfilesList } from '@/components/profile/hooks/use-get-profiles-list'
 import { Profile } from '@/components/profile/profile'
-import { useEffect, useState } from 'react'
 
 export function ProfilesList() {
-  const [profiles, setProfiles] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    async function loadProfiles() {
-      try {
-        const response = await fetch('/api/profiles')
-        if (!response.ok) {
-          throw new Error('Failed to fetch profiles')
-        }
-        const data = await response.json()
-        setProfiles(data.profiles || [])
-      } catch (err) {
-        setError('Failed to load profiles')
-        console.error('Error loading profiles:', err)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    loadProfiles()
-  }, [])
+  const { data: profiles, loading, error, refetch } = useGetProfilesList()
 
   if (loading) {
     return <div>Loading profiles...</div>
@@ -42,13 +20,17 @@ export function ProfilesList() {
 
   return (
     <div>
-      {profiles.map((elem, index: number) => {
-        return (
-          <div className="mb-4" key={elem.profile.username || index}>
-            <Profile username={elem.profile.username} />
-          </div>
-        )
-      })}
+      <button
+        onClick={refetch}
+        className="mb-4 p-2 bg-blue-500 text-white rounded"
+      >
+        Refresh Profiles
+      </button>
+      {profiles.map((elem, index) => (
+        <div className="mb-4" key={elem.profile?.username || index}>
+          <Profile username={elem.profile?.username} />
+        </div>
+      ))}
     </div>
   )
 }

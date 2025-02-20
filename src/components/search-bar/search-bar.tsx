@@ -12,8 +12,6 @@ export function SearchBar() {
   const [query, setQuery] = useState('')
   const lastSearchedQueryRef = useRef('')
 
-  console.log({ searchResults })
-
   useEffect(() => {
     if (!query || query === lastSearchedQueryRef.current) return
 

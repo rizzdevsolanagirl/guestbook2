@@ -8,17 +8,6 @@ export const getProfileInfo = async ({ username }: { username: string }) => {
   }
 }
 
-export async function getProfilesList() {
-  try {
-    return await socialfi.api.profiles.profilesList({
-      page: '0',
-      pageSize: '10',
-    })
-  } catch (error: any) {
-    throw new Error(error.message || 'Failed get profiles')
-  }
-}
-
 export const getFollowers = async ({ username }: { username: string }) => {
   try {
     return await socialfi.api.profiles.followersDetail({ id: username })
