@@ -14,11 +14,14 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const profile = await socialfi.createProfile({
-      walletAddress: ownerWalletAddress,
-      username,
-      blockchain: 'SOLANA',
-    })
+    const profile = await socialfi.profiles.findOrCreateCreate(
+      { apiKey: process.env.TAPESTRY_API_KEY || '' },
+      {
+        walletAddress: ownerWalletAddress,
+        username,
+        blockchain: 'SOLANA',
+      },
+    )
 
     return NextResponse.json(profile)
   } catch (error: any) {

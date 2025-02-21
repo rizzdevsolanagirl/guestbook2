@@ -14,7 +14,8 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const response = await socialfi.api.profiles.suggestedDetail({
+    const response = await socialfi.profiles.suggestedDetail({
+      apiKey: process.env.TAPESTRY_API_KEY || '',
       identifier: walletAddress,
     })
 

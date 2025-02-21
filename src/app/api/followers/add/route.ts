@@ -17,9 +17,12 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    const response = await socialfi.followUser(
-      followerUser.username,
-      followeeUser.username,
+    const response = await socialfi.followers.postFollowers(
+      { apiKey: process.env.TAPESTRY_API_KEY || '' },
+      {
+        startId: followerUser.username,
+        endId: followeeUser.username,
+      },
     )
 
     return NextResponse.json(response)
