@@ -7,8 +7,8 @@ import { useSuggested } from '@/components/suggested-and-creators-invite/hooks/u
 import { SuggestedEntry } from '@/components/suggested-and-creators-invite/suggested-entry'
 import { useEffect } from 'react'
 
-export function DisplaySuggestedAndInvite() {
-  const { walletAddress } = useCurrentWallet()
+export function DisplaySuggestedAndInvite({ username }: { username: string }) {
+  const { walletAddress, mainUsername } = useCurrentWallet()
   const { profiles: suggestedProfiles, getSuggested } = useSuggested()
 
   const { profiles: creatorsInviteProfiles, getCreatorsInvite } =
@@ -20,6 +20,10 @@ export function DisplaySuggestedAndInvite() {
       getCreatorsInvite(walletAddress)
     }
   }, [walletAddress, getSuggested, getCreatorsInvite])
+
+  if (mainUsername !== username) {
+    return null
+  }
 
   return (
     <div className="w-1/2">

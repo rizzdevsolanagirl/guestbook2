@@ -51,7 +51,7 @@ export const fetchTapestry = async <ResponseType = any, InputType = any>({
     endpoint,
   })
 
-  console.log('---> finalUrl ', url)
+  //console.log('---> finalUrl ', url)
 
   const body =
     method === FetchMethod.POST || method === FetchMethod.PUT

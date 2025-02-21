@@ -25,11 +25,14 @@ export function Header() {
         {mainUsername && walletAddress ? (
           <div className="flex items-center">
             <div className="flex flex-col space-y-1 w-[100px]">
-              <Link href={`/${mainUsername}`}>
+              <Link
+                href={`/${mainUsername}`}
+                className="underline hover:opacity-80"
+              >
                 <p className="truncate font-bold">{mainUsername}</p>
               </Link>
               <p
-                className="text-xs cursor-pointer flex items-center space-x-2 hover:text-gray-500"
+                className="text-xs cursor-pointer flex items-center space-x-2 hover:opacity-80"
                 onClick={() => handleCopy(walletAddress)}
               >
                 <span>
