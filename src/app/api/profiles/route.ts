@@ -14,6 +14,12 @@ export async function GET(req: NextRequest) {
   }
 
   try {
+    // const response = await socialfi.api.profiles.profilesList({
+    //   page: '0',
+    //   pageSize: '10',
+    //   walletAddress,
+    // })
+
     const response = await fetchTapestry<IProfileList[]>({
       endpoint: 'profiles',
       method: FetchMethod.GET,

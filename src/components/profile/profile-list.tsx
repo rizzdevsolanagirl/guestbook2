@@ -17,7 +17,7 @@ export function ProfilesList() {
 
   return (
     <div>
-      {profiles.map((elem, index: number) => {
+      {profiles.map((elem, index) => {
         return (
           <div className="mb-4" key={elem.profile.username || index}>
             <Profile username={elem.profile.username} />

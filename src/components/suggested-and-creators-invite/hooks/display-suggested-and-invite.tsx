@@ -23,27 +23,18 @@ export function DisplaySuggestedAndInvite() {
 
   return (
     <div className="w-1/2">
-      <Card className="min-h-[700px]">
-        <div>
-          <div className="flex flex-col items-center justify-center space-y-4 pt-14 pb-16">
-            <p className="text-xl font-bold">Invite your friends</p>
-            <p className="text-xs text-muted-foreground">
-              Connect with friends to get started!
-            </p>
-          </div>
+      <Card className="min-h-[600px] flex flex-col justify-between">
+        <SuggestedEntry
+          title="Suggested friends"
+          data={suggestedProfiles}
+          type="follow"
+        />
 
-          <SuggestedEntry
-            title="Suggested friends"
-            data={suggestedProfiles}
-            type="follow"
-          />
-
-          <SuggestedEntry
-            title="Friends to invite"
-            data={creatorsInviteProfiles}
-            type="invite"
-          />
-        </div>
+        <SuggestedEntry
+          title="Friends to invite"
+          data={creatorsInviteProfiles}
+          type="invite"
+        />
       </Card>
     </div>
   )

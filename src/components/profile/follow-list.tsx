@@ -16,7 +16,7 @@ export function FollowList({ following, followers }: Props) {
 
   return (
     <div className="w-1/2">
-      <Card className="min-h-[700px]">
+      <Card className="min-h-[600px]">
         <div className="w-full flex justify-center py-4 space-x-6">
           <Button
             onClick={() => setFollowingListSelected(false)}

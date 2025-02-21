@@ -9,13 +9,13 @@ importers:
   .:
     dependencies:
       '@emotion/react':
-        specifier: ^11.13.3
+        specifier: ^11.14.0
         version: 11.14.0(@types/react@18.3.18)(react@18.3.1)
       '@jup-ag/wallet-adapter':
-        specifier: ^1.0.0-alpha-5
+        specifier: 1.0.0-alpha-5
         version: 1.0.0-alpha-5(dkoap2fws3waovwngtbwvaihvq)
       '@solana/spl-token':
-        specifier: ^0.4.8
+        specifier: ^0.4.12
         version: 0.4.12(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.3)(utf-8-validate@5.0.10)
       '@solana/wallet-adapter-base':
         specifier: ^0.9.23
@@ -24,7 +24,7 @@ importers:
         specifier: ^0.19.32
         version: 0.19.32(@babel/core@7.26.9)(@babel/runtime@7.26.9)(@react-native-async-storage/async-storage@1.24.0(react-native@0.78.0(@babel/core@7.26.9)(@babel/preset-env@7.26.9(@babel/core@7.26.9))(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10)))(@solana/web3.js@1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(bs58@5.0.0)(bufferutil@4.0.9)(fastestsmallesttextencoderdecoder@1.0.22)(react-dom@18.3.1(react@18.3.1))(react-native@0.78.0(@babel/core@7.26.9)(@babel/preset-env@7.26.9(@babel/core@7.26.9))(@types/react@18.3.18)(bufferutil@4.0.9)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)(tslib@2.8.1)(typescript@5.7.3)(utf-8-validate@5.0.10)(ws@7.5.10(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@solana/web3.js':
-        specifier: ^1.93.2
+        specifier: ^1.98.0
         version: 1.98.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@solflare-wallet/wallet-adapter':
         specifier: ^1.0.3
@@ -45,50 +45,50 @@ importers:
         specifier: ^0.4.4
         version: 0.4.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       pino-pretty:
-        specifier: ^11.2.2
+        specifier: ^11.3.0
         version: 11.3.0
       prettier:
-        specifier: ^3.3.3
+        specifier: ^3.5.1
         version: 3.5.1
       prettier-plugin-organize-imports:
-        specifier: ^4.0.0
+        specifier: ^4.1.0
         version: 4.1.0(prettier@3.5.1)(typescript@5.7.3)
       react:
-        specifier: ^18
+        specifier: ^18.3.1
         version: 18.3.1
       react-dom:
-        specifier: ^18
+        specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
       socialfi:
-        specifier: ^0.1.6
-        version: 0.1.6
+        specifier: ^0.1.5
+        version: 0.1.7
       tailwind-merge:
         specifier: ^3.0.1
         version: 3.0.1
     devDependencies:
       '@types/node':
-        specifier: ^20
+        specifier: ^20.17.19
         version: 20.17.19
       '@types/react':
-        specifier: ^18
+        specifier: ^18.3.18
         version: 18.3.18
       '@types/react-dom':
-        specifier: ^18
+        specifier: ^18.3.5
         version: 18.3.5(@types/react@18.3.18)
       eslint:
-        specifier: ^8
+        specifier: ^8.57.1
         version: 8.57.1
       eslint-config-next:
         specifier: 14.2.5
         version: 14.2.5(eslint@8.57.1)(typescript@5.7.3)
       postcss:
-        specifier: ^8
+        specifier: ^8.5.3
         version: 8.5.3
       tailwindcss:
-        specifier: ^3.4.1
+        specifier: ^3.4.17
         version: 3.4.17
       typescript:
-        specifier: ^5
+        specifier: ^5.7.3
         version: 5.7.3
 
 packages:
@@ -5265,8 +5265,8 @@ packages:
     resolution: {integrity: sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==}
     engines: {node: '>= 6.0.0', npm: '>= 3.0.0'}
 
-  socialfi@0.1.6:
-    resolution: {integrity: sha512-XtHpSeKIvNAgQNm6uXBsQgYoe6vObDX/ol9F7vOhkHh2ma7ouSfU5p6kmASTtlxLYuhVZsrRGc8sUEuautTqyw==}
+  socialfi@0.1.7:
+    resolution: {integrity: sha512-K6YauVI49f7dTpjQ9rigbVjLdfw1oYW9UTZiceQpadxe3xiWcU29gzrL27IgewDMbJMVemwiRZKWSoPP/QJSYw==}
     engines: {node: '>=14.0.0'}
 
   socket.io-client@4.8.1:
@@ -13369,7 +13369,7 @@ snapshots:
 
   smart-buffer@4.2.0: {}
 
-  socialfi@0.1.6:
+  socialfi@0.1.7:
     dependencies:
       axios: 1.7.9
     transitivePeerDependencies:
