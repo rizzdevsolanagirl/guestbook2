@@ -3,9 +3,14 @@ import { useState } from 'react'
 export const useCreateProfile = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [response, setResponse] = useState<any>(null)
+  const [response, setResponse] = useState(null)
 
-  const createProfile = async (username: string, walletAddress: string) => {
+  interface Props {
+    username: string
+    walletAddress: string
+  }
+
+  const createProfile = async ({ username, walletAddress }: Props) => {
     setLoading(true)
     setError(null)
 

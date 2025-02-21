@@ -15,20 +15,20 @@ export function FollowList({ following, followers }: Props) {
   const [followingListSelected, setFollowingListSelected] = useState(false)
 
   return (
-    <div className="flex w-full space-x-4 mt-4">
-      <Card className="w-1/2">
+    <div className="w-1/2">
+      <Card className="min-h-[600px]">
         <div className="w-full flex justify-center py-4 space-x-6">
           <Button
             onClick={() => setFollowingListSelected(false)}
-            active={!followingListSelected}
+            variant={!followingListSelected ? 'secondary' : 'default'}
           >
-            Followers
+            Followers {followers?.profiles.length}
           </Button>
           <Button
             onClick={() => setFollowingListSelected(true)}
-            active={followingListSelected}
+            variant={followingListSelected ? 'secondary' : 'default'}
           >
-            Following
+            Following {following?.profiles.length}
           </Button>
         </div>
         <div className="h-[200px] overflow-auto">

@@ -1,5 +1,4 @@
-// app/api/profiles/create/route.ts
-import { FetchMethod, fetchTapestry } from '@/utils/api'
+import { socialfi } from '@/utils/socialfi'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest) {
@@ -15,18 +14,16 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    // Appel direct à fetchTapestry
-    const createProfileResponse = await fetchTapestry({
-      endpoint: 'profiles/findOrCreate',
-      method: FetchMethod.POST,
-      data: {
+    const profile = await socialfi.profiles.findOrCreateCreate(
+      { apiKey: process.env.TAPESTRY_API_KEY || '' },
+      {
         walletAddress: ownerWalletAddress,
         username,
         blockchain: 'SOLANA',
       },
-    })
+    )
 
-    return NextResponse.json(createProfileResponse)
+    return NextResponse.json(profile)
   } catch (error: any) {
     return NextResponse.json(
       { error: error.message || 'Failed to create profile' },
@@ -34,3 +31,5 @@ export async function POST(req: NextRequest) {
     )
   }
 }
+
+export const dynamic = 'force-dynamic'

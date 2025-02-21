@@ -1,19 +1,16 @@
+'use client'
+
+import { Card } from '@/components/common/card'
 import { FollowButton } from '@/components/profile/follow-button'
+import { useGetProfileInfo } from '@/components/profile/hooks/use-get-profile-info'
 import { ProfileInfos } from '@/components/profile/profile-infos'
-import { getProfileInfo } from '@/lib/tapestry'
-import { Card } from '../common/card'
+
 interface Props {
   username: string
 }
 
-export async function Profile({ username }: Props) {
-  const data = await getProfileInfo({
-    username,
-  })
-
-  if (!data) {
-    return null
-  }
+export function Profile({ username }: Props) {
+  const { data } = useGetProfileInfo({ username })
 
   return (
     <Card>
@@ -21,11 +18,11 @@ export async function Profile({ username }: Props) {
         <div className="flex flex-col justify-center space-y-2 w-full h-full">
           <ProfileInfos
             username={username}
-            walletAddress={data.walletAddress || ''}
+            walletAddress={data?.walletAddress || ''}
           />
           <p>
-            {data.socialCounts.followers} followers |{' '}
-            {data.socialCounts.following} following
+            {data?.socialCounts.followers} followers |{' '}
+            {data?.socialCounts.following} following
           </p>
         </div>
         <FollowButton username={username} />

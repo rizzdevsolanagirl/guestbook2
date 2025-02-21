@@ -1,11 +1,14 @@
-import { useState } from 'react'
+'use client'
 
-export const useSuggested = () => {
-  const [profiles, setProfiles] = useState<any>(null)
+import { ISuggestedProfile } from '@/models/profile.models'
+import { useCallback, useState } from 'react'
+
+export const useCreatorsInvite = () => {
+  const [profiles, setProfiles] = useState<ISuggestedProfile[]>()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const getSuggested = async (walletAddress: string) => {
+  const getCreatorsInvite = useCallback(async (walletAddress: string) => {
     if (!walletAddress) {
       setError('Owner wallet address is required')
       return
@@ -16,11 +19,11 @@ export const useSuggested = () => {
 
     try {
       const response = await fetch(
-        `/api/profiles/suggested?walletAddress=${walletAddress}`,
+        `/api/profiles/creators?walletAddress=${walletAddress}`,
       )
 
       if (!response.ok) {
-        throw new Error('Failed to fetch suggested profiles')
+        throw new Error('Failed to fetch creators invite profiles')
       }
 
       const data = await response.json()
@@ -30,12 +33,12 @@ export const useSuggested = () => {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
 
   return {
     profiles,
     loading,
     error,
-    getSuggested,
+    getCreatorsInvite,
   }
 }

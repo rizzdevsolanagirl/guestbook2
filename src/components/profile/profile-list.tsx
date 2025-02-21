@@ -1,17 +1,26 @@
+'use client'
+
+import { LoadCircle } from '@/components/common/load-circle'
+import { useGetProfilesList } from '@/components/profile/hooks/use-get-profiles-list'
 import { Profile } from '@/components/profile/profile'
-import { getProfilesList } from '@/lib/tapestry'
 
-export async function ProfilesList() {
-  const data = await getProfilesList({})
+export function ProfilesList() {
+  const { data: profiles, loading } = useGetProfilesList()
 
-  const profiles = data.profiles
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center">
+        <LoadCircle />
+      </div>
+    )
+  }
 
   return (
     <div>
-      {profiles.map((profile: any, index: number) => {
+      {profiles.map((elem, index) => {
         return (
-          <div className="mb-4" key={index}>
-            <Profile username={profile.profile.username} />
+          <div className="mb-4" key={elem.profile.username || index}>
+            <Profile username={elem.profile.username} />
           </div>
         )
       })}

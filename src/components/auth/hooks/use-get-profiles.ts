@@ -1,9 +1,18 @@
+import { IProfileList } from '@/models/profile.models'
 import { useEffect, useState } from 'react'
 
-export const useGetProfiles = (walletAddress: string) => {
-  const [profiles, setProfiles] = useState<any>(null)
+interface Props {
+  walletAddress: string
+  shouldIncludeExternalProfiles?: boolean
+}
+
+export function useGetProfiles({
+  walletAddress,
+  shouldIncludeExternalProfiles,
+}: Props) {
+  const [profiles, setProfiles] = useState<IProfileList[]>()
   const [loading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<any>(null)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     if (!walletAddress) return
@@ -11,7 +20,14 @@ export const useGetProfiles = (walletAddress: string) => {
     const fetchProfiles = async () => {
       setLoading(true)
       try {
-        const res = await fetch(`/api/profiles?walletAddress=${walletAddress}`)
+        const url = new URL(`/api/profiles`, window.location.origin)
+        url.searchParams.append('walletAddress', walletAddress)
+
+        if (shouldIncludeExternalProfiles) {
+          url.searchParams.append('includeExternal', 'true')
+        }
+
+        const res = await fetch(url.toString())
         if (!res.ok) {
           const errorData = await res.json()
           throw new Error(errorData.error || 'Failed to fetch profiles')
@@ -26,7 +42,7 @@ export const useGetProfiles = (walletAddress: string) => {
     }
 
     fetchProfiles()
-  }, [walletAddress])
+  }, [walletAddress, shouldIncludeExternalProfiles])
 
   return { profiles, loading, error }
 }
