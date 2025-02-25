@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const profile = await socialfi.profiles.findOrCreateCreate(
-      { apiKey: process.env.TAPESTRY_API_KEY || '' },
+      {},
       {
         walletAddress: ownerWalletAddress,
         username,
