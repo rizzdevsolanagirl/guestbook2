@@ -36,9 +36,9 @@ export function Button({
     <button
       className={cn(
         className,
-        'py-2 hover:opacity-80 rounded',
+        'py-2 hover:opacity-80 rounded-sm',
         getButtonStyles(variant),
-        disabled ? '!opacity-50 !cursor-not-allowed' : '',
+        disabled ? 'opacity-50! cursor-not-allowed!' : '',
       )}
       disabled={disabled}
       onClick={onClick}

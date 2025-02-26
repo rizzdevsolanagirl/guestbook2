@@ -12,7 +12,7 @@ export default function Dialog({ isOpen, setIsOpen, children }: Props) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 top-0 left-0">
-      <div className="bg-muted p-6 rounded shadow-lg relative min-h-[200px] min-w-[350px]">
+      <div className="bg-muted p-6 rounded-sm shadow-lg relative min-h-[200px] min-w-[350px]">
         <button
           className="absolute top-2 right-2 text-foreground hover:text-gray-200"
           onClick={() => setIsOpen(false)}

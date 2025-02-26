@@ -37,7 +37,7 @@ export function SearchBar() {
         </div>
 
         {query && (
-          <div className="mt-4 max-h-[200px] overflow-auto border-2 border-muted rounded p-4">
+          <div className="mt-4 max-h-[200px] overflow-auto border-2 border-muted rounded-sm p-4">
             {loading && (
               <div className="flex items-center justify-center">
                 <LoadCircle />

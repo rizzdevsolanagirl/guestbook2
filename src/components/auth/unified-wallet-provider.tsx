@@ -45,7 +45,6 @@ export const AppWalletProvider: React.FC<{ children: React.ReactNode }> = ({
           })
 
         // While sometimes supported, it mostly isn't. Should this be dynamic in the wallet-adapter instead?
-        //@ts-ignore
         adapter.supportedTransactionVersions = new Set(['legacy'])
 
         return adapter

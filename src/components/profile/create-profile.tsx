@@ -110,7 +110,7 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
                   >
                     <div
                       className={cn(
-                        'flex items-center border-2 rounded w-full p-2 space-y-2',
+                        'flex items-center border-2 rounded-sm w-full p-2 space-y-2',
                         {
                           'border border-accent': selectProfile === entry,
                           'border border-mutedLight': selectProfile !== entry,
