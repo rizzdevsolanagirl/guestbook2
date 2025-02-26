@@ -1,4 +1,4 @@
-import { socialfi } from '@/utils/socialfi'
+import { fetchTapestry } from '@/utils/api'
 import { NextResponse } from 'next/server'
 
 export async function GET(req: Request) {
@@ -10,8 +10,12 @@ export async function GET(req: Request) {
   }
 
   try {
-    const response = await socialfi.profiles.profilesDetail({
-      id: username,
+    // const response = await socialfi.profiles.profilesDetail({
+    //   id: username,
+    // })
+
+    const response = await fetchTapestry({
+      endpoint: `profiles/${username}`,
     })
 
     return NextResponse.json(response)
