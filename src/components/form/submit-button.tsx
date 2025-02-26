@@ -12,7 +12,7 @@ export function SubmitButton({ children }: Props) {
   return (
     <button
       type="submit"
-      className="bg-foreground text-background h-10 p-2 hover:opacity-80 rounded"
+      className="bg-foreground text-background h-10 p-2 hover:opacity-80 rounded-sm"
       disabled={pending}
     >
       {children}

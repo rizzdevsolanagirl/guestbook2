@@ -25,7 +25,7 @@ export function SuggestedEntry({ title, data, type }: Props) {
             {data.map((item, index) => (
               <div
                 key={index}
-                className="bg-secondary-foreground rounded flex items-center px-2 py-3 justify-between"
+                className="bg-secondary-foreground rounded-sm flex items-center px-2 py-3 justify-between"
               >
                 <div className="flex items-center space-x-4">
                   {item?.profile?.image ? (

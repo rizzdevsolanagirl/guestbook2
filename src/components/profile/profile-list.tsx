@@ -19,7 +19,7 @@ export function ProfilesList() {
     <div>
       {profiles.map((elem, index) => {
         return (
-          <div className="mb-4" key={elem.profile.username || index}>
+          <div className="mb-4" key={elem.profile.username + index.toString()}>
             <Profile username={elem.profile.username} />
           </div>
         )
