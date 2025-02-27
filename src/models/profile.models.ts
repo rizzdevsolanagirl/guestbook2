@@ -6,8 +6,10 @@ export interface ISocialCounts {
 }
 
 export interface IProfileResponse {
-  walletAddress?: string | undefined
+  walletAddress?: string
   socialCounts: ISocialCounts
+  profile: IProfile
+  namespace: INamespace
 }
 
 export interface IProfile {
