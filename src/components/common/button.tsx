@@ -11,6 +11,7 @@ interface Props {
   disabled?: boolean
   variant?: IVariant
   className?: string
+  type?: 'button' | 'submit' | 'reset'
 }
 
 function getButtonStyles(variant?: IVariant) {
@@ -30,6 +31,7 @@ export function Button({
   disabled,
   variant = 'default',
   className,
+  type = 'button',
   onClick,
 }: Props) {
   return (
@@ -42,6 +44,7 @@ export function Button({
       )}
       disabled={disabled}
       onClick={onClick}
+      type={type}
     >
       {children}
     </button>

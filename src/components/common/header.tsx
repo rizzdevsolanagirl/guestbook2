@@ -7,6 +7,7 @@ import { UnifiedWalletButton } from '@jup-ag/wallet-adapter'
 import {
   Check,
   Clipboard,
+  HandCoins,
   House,
   LogOut,
   MoreVertical,
@@ -108,6 +109,17 @@ export function Header() {
                       className="px-4 py-2 hover:bg-muted-light w-full"
                     >
                       <User size={16} className="mr-2" /> my profile
+                    </Button>
+
+                    <Button
+                      variant="ghost"
+                      onClick={() => {
+                        router.push('/sse')
+                        setIsDropdownOpen(false)
+                      }}
+                      className="px-4 py-2 hover:bg-muted-light w-full"
+                    >
+                      <HandCoins size={16} className="mr-2" /> see
                     </Button>
 
                     <Button
