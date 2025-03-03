@@ -45,7 +45,7 @@ export function SearchBar() {
             )}
             {error && <p className="text-error">{error}</p>}
             {!!searchResults &&
-              searchResults.profiles.map((elem: ISearch) => (
+              searchResults.profiles?.map((elem: ISearch) => (
                 <div key={elem.profile.id} className="mb-4">
                   <Link href={`/${elem.profile?.username}`}>
                     <p className="truncate font-bold hover:underline">

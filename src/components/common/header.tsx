@@ -119,7 +119,7 @@ export function Header() {
                       }}
                       className="px-4 py-2 hover:bg-muted-light w-full"
                     >
-                      <HandCoins size={16} className="mr-2" /> see
+                      <HandCoins size={16} className="mr-2" /> sse
                     </Button>
 
                     <Button
