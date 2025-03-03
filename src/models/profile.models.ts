@@ -6,8 +6,10 @@ export interface ISocialCounts {
 }
 
 export interface IProfileResponse {
-  walletAddress?: string | undefined
+  walletAddress?: string
   socialCounts: ISocialCounts
+  profile: IProfile
+  namespace: INamespace
 }
 
 export interface IProfile {
@@ -69,4 +71,19 @@ export interface ISearch {
   socialCounts: ISocialCounts
   walletAddress: string
   namespaces: INamespace
+}
+
+export interface IIdentitiesResponse {
+  profiles: IIdentity[]
+  page: number
+  pageSize: number
+  totalCount: number
+}
+
+export interface IIdentity {
+  profile: IProfile
+  wallet: {
+    address: string
+  }
+  namespace: INamespace
 }

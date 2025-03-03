@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@/components/common/button'
 import { Check, Copy } from 'lucide-react'
 import { useState } from 'react'
 
@@ -17,8 +18,8 @@ export function CopyPaste({ content }: Props) {
   }
 
   return (
-    <button onClick={handleCopy}>
+    <Button variant="ghost" onClick={handleCopy}>
       {copied ? <Check size={15} /> : <Copy size={15} />}
-    </button>
+    </Button>
   )
 }

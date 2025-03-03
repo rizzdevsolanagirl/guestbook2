@@ -21,10 +21,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AppWalletProvider>
-          <div className="p-12 max-w-6xl mx-auto">
-            <Header />
-            {children}
-          </div>
+          <Header />
+          <div className="max-w-6xl mx-auto pt-12">{children}</div>
         </AppWalletProvider>
       </body>
     </html>

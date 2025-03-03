@@ -4,49 +4,139 @@ import { useCurrentWallet } from '@/components/auth/hooks/use-current-wallet'
 import { Button } from '@/components/common/button'
 import { abbreviateWalletAddress } from '@/components/common/tools'
 import { UnifiedWalletButton } from '@jup-ag/wallet-adapter'
-import { LogOut } from 'lucide-react'
+import {
+  Check,
+  Clipboard,
+  HandCoins,
+  House,
+  LogOut,
+  MoreVertical,
+  User,
+} from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
 
 export function Header() {
   const { walletAddress, mainUsername, walletDisconnect } = useCurrentWallet()
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [copied, setCopied] = useState(false)
+  const dropdownRef = useRef(null)
+  const router = useRouter()
 
   const handleCopy = (address: string) => {
     navigator.clipboard.writeText(address)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
   }
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        (dropdownRef.current as HTMLElement).contains(event.target as Node)
+      ) {
+        return
+      }
+      setIsDropdownOpen(false)
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
+
   return (
-    <div className="flex justify-between w-full mb-12 h-[60px]">
-      <h1 className="text-4xl">
-        <Link href="/" className="hover:opacity-80">
-          Tapestry Template
-        </Link>
-      </h1>
-      <div>
-        {mainUsername && walletAddress ? (
-          <div className="flex items-center">
-            <div className="flex flex-col space-y-1 w-[100px]">
-              <Link
-                href={`/${mainUsername}`}
-                className="underline hover:opacity-80"
-              >
-                <p className="truncate font-bold">{mainUsername}</p>
-              </Link>
-              <p
-                className="text-xs cursor-pointer flex items-center space-x-2 hover:opacity-80"
-                onClick={() => handleCopy(walletAddress)}
-              >
-                <span>
-                  {abbreviateWalletAddress({ address: walletAddress })}
-                </span>
-              </p>
+    <div className="border-b-1 border-muted flex items-center justify-center w-full p-1">
+      <div className="max-w-6xl w-full flex items-center justify-between">
+        <h1 className="text-2xl font-bold">
+          <Link href="/" className="hover:opacity-80">
+            Tapestry Template
+          </Link>
+        </h1>
+        <div>
+          {mainUsername && walletAddress ? (
+            <div className="flex items-center relative" ref={dropdownRef}>
+              <div className="flex flex-col space-y-1 w-[100px]">
+                <Link
+                  href={`/${mainUsername}`}
+                  className="underline hover:opacity-80"
+                >
+                  <p className="truncate font-bold">{mainUsername}</p>
+                </Link>
+              </div>
+              <div className="relative">
+                <Button
+                  variant="ghost"
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                >
+                  <MoreVertical size={20} />
+                </Button>
+                {isDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-muted shadow-lg rounded-md overflow-hidden z-50">
+                    <div className="border-b border-muted-light">
+                      <Button
+                        variant="ghost"
+                        className="px-4 py-2 hover:bg-muted-light w-full"
+                        onClick={() => handleCopy(walletAddress)}
+                      >
+                        {copied ? (
+                          <Check size={16} className="mr-2" />
+                        ) : (
+                          <Clipboard size={16} className="mr-2" />
+                        )}
+                        {abbreviateWalletAddress({ address: walletAddress })}
+                      </Button>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      onClick={() => {
+                        router.push('/')
+                        setIsDropdownOpen(false)
+                      }}
+                      className="px-4 py-2 hover:bg-muted-light w-full"
+                    >
+                      <House size={16} className="mr-2" /> home
+                    </Button>
+
+                    <Button
+                      variant="ghost"
+                      onClick={() => {
+                        router.push(`/${mainUsername}`)
+                        setIsDropdownOpen(false)
+                      }}
+                      className="px-4 py-2 hover:bg-muted-light w-full"
+                    >
+                      <User size={16} className="mr-2" /> my profile
+                    </Button>
+
+                    <Button
+                      variant="ghost"
+                      onClick={() => {
+                        router.push('/sse')
+                        setIsDropdownOpen(false)
+                      }}
+                      className="px-4 py-2 hover:bg-muted-light w-full"
+                    >
+                      <HandCoins size={16} className="mr-2" /> see
+                    </Button>
+
+                    <Button
+                      variant="ghost"
+                      className="px-4 py-2 hover:bg-muted-light w-full !text-red-500"
+                      onClick={walletDisconnect}
+                    >
+                      <LogOut size={16} className="mr-2" /> log out
+                    </Button>
+                  </div>
+                )}
+              </div>
             </div>
-            <Button onClick={walletDisconnect}>
-              <LogOut size={20} />
-            </Button>
-          </div>
-        ) : (
-          <UnifiedWalletButton />
-        )}
+          ) : (
+            <UnifiedWalletButton />
+          )}
+        </div>
       </div>
     </div>
   )

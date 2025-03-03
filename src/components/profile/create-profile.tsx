@@ -1,14 +1,14 @@
 'use client'
 
 import { useCurrentWallet } from '@/components/auth/hooks/use-current-wallet'
-import { useGetProfiles } from '@/components/auth/hooks/use-get-profiles'
 import { Alert } from '@/components/common/alert'
 import { Button } from '@/components/common/button'
 import { LoadCircle } from '@/components/common/load-circle'
 import { Input } from '@/components/form/input'
 import { SubmitButton } from '@/components/form/submit-button'
 import { useCreateProfile } from '@/components/profile/hooks/use-create-profile'
-import { IProfileList } from '@/models/profile.models'
+import { useGetIdentities } from '@/components/profile/hooks/use-get-identities'
+import { IIdentity, IProfileList } from '@/models/profile.models'
 import { cn } from '@/utils/utils'
 import { User } from 'lucide-react'
 import { useState } from 'react'
@@ -32,10 +32,11 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
     response,
   } = useCreateProfile()
 
-  const { profiles, loading: profilesLoading } = useGetProfiles({
+  const { data: identities, loading: profilesLoading } = useGetIdentities({
     walletAddress: walletAddress || '',
-    shouldIncludeExternalProfiles: true,
   })
+
+  console.log({ identities })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -52,7 +53,7 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
     setUsername(validValue)
   }
 
-  const handleClick = async (profile: IProfileList) => {
+  const handleClick = async (profile: IIdentity) => {
     if (!walletAddress) {
       return
     }
@@ -98,9 +99,9 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
         <div className="bg-foreground h-[1px] w-full my-4" />
         <div className="flex flex-col space-y-4 items-center w-full">
           <div className="w-full">
-            {!!profiles?.length ? (
+            {!!identities?.profiles?.length ? (
               <div className="w-full">
-                {profiles?.map((entry, index) => (
+                {identities?.profiles?.map((entry, index) => (
                   <Button
                     key={index}
                     disabled={profilesLoading}
@@ -140,7 +141,7 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
           </div>
 
           <Button
-            className="w-full"
+            className="w-full justify-center"
             variant="secondary"
             disabled={selectProfile === null}
             onClick={() => {
@@ -152,7 +153,7 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
             Import profile
           </Button>
           <Button
-            className="w-full text-xs underline"
+            className="w-full text-xs underline justify-center"
             variant="ghost"
             onClick={() => {
               walletDisconnect()
