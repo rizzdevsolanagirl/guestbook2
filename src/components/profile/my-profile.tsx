@@ -30,7 +30,7 @@ export function MyProfile({ username }: Props) {
                 />
               </div>
             ) : (
-              <div className="h-10 w-10 bg-muted rounded-full" />
+              <div className="h-10 w-10 bg-muted-light rounded-full" />
             )}
             <h2 className="w-full font-bold text-xl">{username}</h2>
           </div>
