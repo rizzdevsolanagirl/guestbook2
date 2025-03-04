@@ -24,3 +24,9 @@ body {
   color: var(--foreground);
   background: var(--background);
 }
+
+.dialect > * > button {
+  height: 20px !important;
+  width: 20px !important;
+  border-radius: 100% !important;
+}
