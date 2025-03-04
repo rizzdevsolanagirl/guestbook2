@@ -3,6 +3,7 @@
 import { useCurrentWallet } from '@/components/auth/hooks/use-current-wallet'
 import { Button } from '@/components/common/button'
 import { abbreviateWalletAddress } from '@/components/common/tools'
+import { DialectNotificationComponent } from '@/components/notifications/dialect-notifications-component'
 import { UnifiedWalletButton } from '@jup-ag/wallet-adapter'
 import {
   Check,
@@ -10,7 +11,7 @@ import {
   HandCoins,
   House,
   LogOut,
-  MoreVertical,
+  Menu,
   User,
 } from 'lucide-react'
 import Image from 'next/image'
@@ -54,23 +55,18 @@ export function Header() {
         <Link href="/" className="hover:opacity-80">
           <h1 className="text-2xl font-bold">Tapestry Template</h1>
         </Link>
+
         <div className="flex items-center space-x-6">
           {mainUsername && walletAddress ? (
             <div className="flex items-center relative" ref={dropdownRef}>
-              <div className="flex flex-col space-y-1 w-[100px]">
-                <Link
-                  href={`/${mainUsername}`}
-                  className="underline hover:opacity-80"
-                >
-                  <p className="truncate font-bold">{mainUsername}</p>
-                </Link>
-              </div>
               <div className="relative">
                 <Button
                   variant="ghost"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className="space-x-2"
                 >
-                  <MoreVertical size={20} />
+                  <p className="truncate font-bold">{mainUsername}</p>
+                  <Menu size={20} />
                 </Button>
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-muted shadow-lg rounded-md overflow-hidden z-50">
@@ -135,20 +131,22 @@ export function Header() {
           ) : (
             <UnifiedWalletButton />
           )}
-
-          <Link
-            href="https://github.com/Primitives-xyz/tapestry-template"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:opacity-80 flex items-center"
-          >
-            <Image
-              width={20}
-              height={20}
-              alt="Github link"
-              src="/logos/github-mark.svg"
-            />
-          </Link>
+          <div className="flex items-center gap-2">
+            <DialectNotificationComponent />
+            <Link
+              href="https://github.com/Primitives-xyz/tapestry-template"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-80 flex items-center"
+            >
+              <Image
+                width={20}
+                height={20}
+                alt="Github link"
+                src="/logos/github-mark.svg"
+              />
+            </Link>
+          </div>
         </div>
       </div>
     </div>
