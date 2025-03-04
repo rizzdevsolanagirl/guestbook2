@@ -8,7 +8,7 @@ import { Input } from '@/components/form/input'
 import { SubmitButton } from '@/components/form/submit-button'
 import { useCreateProfile } from '@/components/profile/hooks/use-create-profile'
 import { useGetIdentities } from '@/components/profile/hooks/use-get-identities'
-import { IIdentity, IProfileList } from '@/models/profile.models'
+import { IProfile } from '@/models/profile.models'
 import { cn } from '@/utils/utils'
 import { User } from 'lucide-react'
 import { useState } from 'react'
@@ -23,7 +23,7 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
 
   const [username, setUsername] = useState('')
 
-  const [selectProfile, setSelectProfile] = useState<IProfileList | null>(null)
+  const [selectProfile, setSelectProfile] = useState<IProfile | null>(null)
 
   const {
     createProfile,
@@ -35,8 +35,6 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
   const { data: identities, loading: profilesLoading } = useGetIdentities({
     walletAddress: walletAddress || '',
   })
-
-  console.log({ identities })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -53,14 +51,14 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
     setUsername(validValue)
   }
 
-  const handleClick = async (profile: IIdentity) => {
+  const handleClick = async (profile: IProfile) => {
     if (!walletAddress) {
       return
     }
 
     await createProfile({
-      username: profile.profile.username,
-      walletAddress: profile.wallet.address,
+      username: profile.username,
+      walletAddress: walletAddress,
     })
 
     setCreateProfileDialog(false)
@@ -73,6 +71,11 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
       </div>
     )
   }
+
+  const profiles =
+    identities?.identities
+      ?.flatMap((identity: any) => identity.profiles)
+      .slice(0, 5) ?? []
 
   return (
     <>
@@ -99,9 +102,9 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
         <div className="bg-foreground h-[1px] w-full my-4" />
         <div className="flex flex-col space-y-4 items-center w-full">
           <div className="w-full">
-            {!!identities?.profiles?.length ? (
+            {!!profiles.length ? (
               <div className="w-full">
-                {identities?.profiles?.map((entry, index) => (
+                {profiles.map((entry, index) => (
                   <Button
                     key={index}
                     disabled={profilesLoading}
@@ -124,8 +127,16 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
                         </div>
                         <div className="w-2/3 flex flex-col items-start text-left">
                           <h4 className="text-md font-bold truncate w-full">
-                            {entry.profile.username}
+                            {entry?.profile?.username ?? 'No username'}
                           </h4>
+                          {entry?.profile?.bio && (
+                            <p className="text-xs text-muted-foreground truncate w-full">
+                              {entry?.profile?.bio}
+                            </p>
+                          )}
+                          <p className="text-xs text-muted-foreground truncate w-full">
+                            {entry?.namespace?.readableName ?? 'No namespace'}
+                          </p>
                         </div>
                       </div>
                     </div>

@@ -72,18 +72,3 @@ export interface ISearch {
   walletAddress: string
   namespaces: INamespace
 }
-
-export interface IIdentitiesResponse {
-  profiles: IIdentity[]
-  page: number
-  pageSize: number
-  totalCount: number
-}
-
-export interface IIdentity {
-  profile: IProfile
-  wallet: {
-    address: string
-  }
-  namespace: INamespace
-}
