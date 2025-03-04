@@ -13,6 +13,7 @@ import {
   MoreVertical,
   User,
 } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
@@ -50,12 +51,10 @@ export function Header() {
   return (
     <div className="border-b-1 border-muted flex items-center justify-center w-full p-1">
       <div className="max-w-6xl w-full flex items-center justify-between">
-        <h1 className="text-2xl font-bold">
-          <Link href="/" className="hover:opacity-80">
-            Tapestry Template
-          </Link>
-        </h1>
-        <div>
+        <Link href="/" className="hover:opacity-80">
+          <h1 className="text-2xl font-bold">Tapestry Template</h1>
+        </Link>
+        <div className="flex items-center space-x-6">
           {mainUsername && walletAddress ? (
             <div className="flex items-center relative" ref={dropdownRef}>
               <div className="flex flex-col space-y-1 w-[100px]">
@@ -136,6 +135,20 @@ export function Header() {
           ) : (
             <UnifiedWalletButton />
           )}
+
+          <Link
+            href="https://github.com/Primitives-xyz/tapestry-template"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:opacity-80 flex items-center"
+          >
+            <Image
+              width={20}
+              height={20}
+              alt="Github link"
+              src="/logos/github-mark.svg"
+            />
+          </Link>
         </div>
       </div>
     </div>
