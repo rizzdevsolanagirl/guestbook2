@@ -8,12 +8,12 @@ export async function GET(req: NextRequest) {
   const walletAddress = searchParams.get('walletAddress')
 
   try {
-    const data = await socialfi.identities.identitiesDetail({
+    const response = await socialfi.identities.profilesDetail({
       id: walletAddress || '',
       apiKey: process.env.TAPESTRY_API_KEY || '',
     })
 
-    return NextResponse.json(data)
+    return NextResponse.json(response)
   } catch (error: any) {
     console.error('Error fetching profiles:', error)
     return NextResponse.json(

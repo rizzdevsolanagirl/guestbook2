@@ -8,9 +8,10 @@ import { Input } from '@/components/form/input'
 import { SubmitButton } from '@/components/form/submit-button'
 import { useCreateProfile } from '@/components/profile/hooks/use-create-profile'
 import { useGetIdentities } from '@/components/profile/hooks/use-get-identities'
-import { IProfile } from '@/models/profile.models'
+import { IIdentity, IProfileList } from '@/models/profile.models'
 import { cn } from '@/utils/utils'
 import { User } from 'lucide-react'
+import Image from 'next/image'
 import { useState } from 'react'
 
 interface Props {
@@ -23,7 +24,7 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
 
   const [username, setUsername] = useState('')
 
-  const [selectProfile, setSelectProfile] = useState<IProfile | null>(null)
+  const [selectProfile, setSelectProfile] = useState<IProfileList | null>(null)
 
   const {
     createProfile,
@@ -35,6 +36,8 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
   const { data: identities, loading: profilesLoading } = useGetIdentities({
     walletAddress: walletAddress || '',
   })
+
+  console.log(identities)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -51,14 +54,14 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
     setUsername(validValue)
   }
 
-  const handleClick = async (profile: IProfile) => {
+  const handleClick = async (elem: IIdentity) => {
     if (!walletAddress) {
       return
     }
 
     await createProfile({
-      username: profile.username,
-      walletAddress: walletAddress,
+      username: elem.profile.username,
+      walletAddress: elem.wallet.address,
     })
 
     setCreateProfileDialog(false)
@@ -71,11 +74,6 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
       </div>
     )
   }
-
-  const profiles =
-    identities?.identities
-      ?.flatMap((identity: any) => identity.profiles)
-      .slice(0, 5) ?? []
 
   return (
     <>
@@ -102,9 +100,9 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
         <div className="bg-foreground h-[1px] w-full my-4" />
         <div className="flex flex-col space-y-4 items-center w-full">
           <div className="w-full">
-            {!!profiles.length ? (
-              <div className="w-full">
-                {profiles.map((entry, index) => (
+            {!!identities?.profiles?.length ? (
+              <div className="w-full h-[200px] overflow-auto">
+                {identities?.profiles?.map((entry, index) => (
                   <Button
                     key={index}
                     disabled={profilesLoading}
@@ -123,7 +121,20 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
                     >
                       <div className="flex items-center space-x-2">
                         <div className="relative rounded-full w-11 h-11 bg-muted-foreground shrink-0 flex items-center justify-center">
-                          <User />
+                          {entry.profile.image ? (
+                            <div>
+                              <Image
+                                width={30}
+                                height={30}
+                                alt="avatar"
+                                className="rounded-full object-cover"
+                                src={entry.profile.image}
+                                unoptimized
+                              />
+                            </div>
+                          ) : (
+                            <User />
+                          )}
                         </div>
                         <div className="w-2/3 flex flex-col items-start text-left">
                           <h4 className="text-md font-bold truncate w-full">
@@ -134,9 +145,18 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
                               {entry?.profile?.bio}
                             </p>
                           )}
-                          <p className="text-xs text-muted-foreground truncate w-full">
-                            {entry?.namespace?.readableName ?? 'No namespace'}
-                          </p>
+                          {entry?.namespace?.faviconURL && (
+                            <div className="mt-2 w-full">
+                              <Image
+                                width={15}
+                                height={15}
+                                alt="favicon"
+                                className="rounded-full object-cover"
+                                src={entry.namespace.faviconURL}
+                                unoptimized
+                              />
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>

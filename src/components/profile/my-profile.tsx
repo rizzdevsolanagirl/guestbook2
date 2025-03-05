@@ -3,8 +3,8 @@
 import { Card } from '@/components/common/card'
 import { CopyPaste } from '@/components/common/copy-paste'
 import { Bio } from '@/components/profile/bio'
-import { FollowButton } from '@/components/profile/follow-button'
 import { useGetProfileInfo } from '@/components/profile/hooks/use-get-profile-info'
+import { User } from 'lucide-react'
 import Image from 'next/image'
 
 interface Props {
@@ -27,10 +27,13 @@ export function MyProfile({ username }: Props) {
                   height={40}
                   alt="avatar"
                   className="object-cover rounded-full"
+                  unoptimized
                 />
               </div>
             ) : (
-              <div className="h-10 w-10 bg-muted-light rounded-full" />
+              <div className="h-10 w-10 bg-muted-light rounded-full flex items-center justify-center">
+                <User />
+              </div>
             )}
             <h2 className="w-full font-bold text-xl">{username}</h2>
           </div>
@@ -45,7 +48,6 @@ export function MyProfile({ username }: Props) {
           </p>
           <Bio username={username} data={data} refetch={refetch} />
         </div>
-        <FollowButton username={username} />
       </div>
     </Card>
   )
