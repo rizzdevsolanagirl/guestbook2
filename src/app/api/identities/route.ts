@@ -1,6 +1,6 @@
 // app/api/profiles/findAllProfiles/route.ts
 
-import { FetchMethod, fetchTapestry } from '@/utils/api'
+import { socialfi } from '@/utils/socialfi'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest) {
@@ -8,12 +8,12 @@ export async function GET(req: NextRequest) {
   const walletAddress = searchParams.get('walletAddress')
 
   try {
-    const data = await fetchTapestry({
-      endpoint: `identities/${walletAddress}/profiles`,
-      method: FetchMethod.GET,
+    const response = await socialfi.identities.profilesDetail({
+      id: walletAddress || '',
+      apiKey: process.env.TAPESTRY_API_KEY || '',
     })
 
-    return NextResponse.json(data)
+    return NextResponse.json(response)
   } catch (error: any) {
     console.error('Error fetching profiles:', error)
     return NextResponse.json(

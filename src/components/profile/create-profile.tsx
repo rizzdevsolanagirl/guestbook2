@@ -37,7 +37,7 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
     walletAddress: walletAddress || '',
   })
 
-  console.log({ identities })
+  console.log(identities)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -54,14 +54,14 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
     setUsername(validValue)
   }
 
-  const handleClick = async (profile: IIdentity) => {
+  const handleClick = async (elem: IIdentity) => {
     if (!walletAddress) {
       return
     }
 
     await createProfile({
-      username: profile.profile.username,
-      walletAddress: profile.wallet.address,
+      username: elem.profile.username,
+      walletAddress: elem.wallet.address,
     })
 
     setCreateProfileDialog(false)
@@ -138,13 +138,25 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
                         </div>
                         <div className="w-2/3 flex flex-col items-start text-left">
                           <h4 className="text-md font-bold truncate w-full">
-                            {entry.profile.username}
+                            {entry?.profile?.username ?? 'No username'}
                           </h4>
-                          <div className="w-[200px]">
-                            <p className="line-clamp-2 font-light">
-                              {entry.profile.bio}
+                          {entry?.profile?.bio && (
+                            <p className="text-xs text-muted-foreground truncate w-full">
+                              {entry?.profile?.bio}
                             </p>
-                          </div>
+                          )}
+                          {entry?.namespace?.faviconURL && (
+                            <div className="mt-2 w-full">
+                              <Image
+                                width={15}
+                                height={15}
+                                alt="favicon"
+                                className="rounded-full object-cover"
+                                src={entry.namespace.faviconURL}
+                                unoptimized
+                              />
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
