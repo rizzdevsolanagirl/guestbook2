@@ -11,6 +11,7 @@ import { useGetIdentities } from '@/components/profile/hooks/use-get-identities'
 import { IIdentity, IProfileList } from '@/models/profile.models'
 import { cn } from '@/utils/utils'
 import { User } from 'lucide-react'
+import Image from 'next/image'
 import { useState } from 'react'
 
 interface Props {
@@ -100,7 +101,7 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
         <div className="flex flex-col space-y-4 items-center w-full">
           <div className="w-full">
             {!!identities?.profiles?.length ? (
-              <div className="w-full">
+              <div className="w-full h-[200px] overflow-auto">
                 {identities?.profiles?.map((entry, index) => (
                   <Button
                     key={index}
@@ -120,12 +121,30 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
                     >
                       <div className="flex items-center space-x-2">
                         <div className="relative rounded-full w-11 h-11 bg-muted-foreground shrink-0 flex items-center justify-center">
-                          <User />
+                          {entry.profile.image ? (
+                            <div>
+                              <Image
+                                width={30}
+                                height={30}
+                                alt="avatar"
+                                className="rounded-full object-cover"
+                                src={entry.profile.image}
+                                unoptimized
+                              />
+                            </div>
+                          ) : (
+                            <User />
+                          )}
                         </div>
                         <div className="w-2/3 flex flex-col items-start text-left">
                           <h4 className="text-md font-bold truncate w-full">
                             {entry.profile.username}
                           </h4>
+                          <div className="w-[200px]">
+                            <p className="line-clamp-2 font-light">
+                              {entry.profile.bio}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
