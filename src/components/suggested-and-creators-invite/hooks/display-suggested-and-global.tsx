@@ -2,24 +2,23 @@
 
 import { useCurrentWallet } from '@/components/auth/hooks/use-current-wallet'
 import { Card } from '@/components/common/card'
-import { useCreatorsInvite } from '@/components/suggested-and-creators-invite/hooks/use-creators-invite'
 import { useSuggested } from '@/components/suggested-and-creators-invite/hooks/use-suggested'
+import { useSuggestedGlobal } from '@/components/suggested-and-creators-invite/hooks/use-suggested-global'
 import { SuggestedEntry } from '@/components/suggested-and-creators-invite/suggested-entry'
 import { useEffect } from 'react'
 
-export function DisplaySuggestedAndInvite({ username }: { username: string }) {
+export function DisplaySuggestedAndGlobal({ username }: { username: string }) {
   const { walletAddress, mainUsername } = useCurrentWallet()
   const { profiles: suggestedProfiles, getSuggested } = useSuggested()
-
-  const { profiles: creatorsInviteProfiles, getCreatorsInvite } =
-    useCreatorsInvite()
+  const { profiles: suggestedGlobalProfiles, getSuggestedGlobal } =
+    useSuggestedGlobal()
 
   useEffect(() => {
     if (walletAddress) {
       getSuggested(walletAddress)
-      getCreatorsInvite(walletAddress)
+      getSuggestedGlobal(walletAddress)
     }
-  }, [walletAddress, getSuggested, getCreatorsInvite])
+  }, [walletAddress, getSuggested, getSuggestedGlobal])
 
   if (mainUsername !== username) {
     return null
@@ -35,9 +34,9 @@ export function DisplaySuggestedAndInvite({ username }: { username: string }) {
         />
 
         <SuggestedEntry
-          title="Friends to invite"
-          data={creatorsInviteProfiles}
-          type="invite"
+          title="Suggested global profiles"
+          data={suggestedGlobalProfiles}
+          type="suggestedGlobal"
         />
       </Card>
     </div>
