@@ -3,12 +3,12 @@
 import { ISuggestedProfile } from '@/models/profile.models'
 import { useCallback, useState } from 'react'
 
-export const useCreatorsInvite = () => {
+export const useSuggestedGlobal = () => {
   const [profiles, setProfiles] = useState<ISuggestedProfile[]>()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const getCreatorsInvite = useCallback(async (walletAddress: string) => {
+  const getSuggestedGlobal = useCallback(async (walletAddress: string) => {
     if (!walletAddress) {
       setError('Owner wallet address is required')
       return
@@ -19,11 +19,11 @@ export const useCreatorsInvite = () => {
 
     try {
       const response = await fetch(
-        `/api/profiles/creators?walletAddress=${walletAddress}`,
+        `/api/profiles/suggested/global?walletAddress=${walletAddress}`,
       )
 
       if (!response.ok) {
-        throw new Error('Failed to fetch creators invite profiles')
+        throw new Error('Failed to fetch suggested global profiles')
       }
 
       const data = await response.json()
@@ -39,6 +39,6 @@ export const useCreatorsInvite = () => {
     profiles,
     loading,
     error,
-    getCreatorsInvite,
+    getSuggestedGlobal,
   }
 }

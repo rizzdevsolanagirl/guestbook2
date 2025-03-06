@@ -1,5 +1,4 @@
-// app/api/profiles/suggestedProfiles/route.ts
-import { fetchTapestry } from '@/utils/api'
+import { socialfi } from '@/utils/socialfi'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest) {
@@ -14,8 +13,9 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const response = await fetchTapestry({
-      endpoint: `creators/invite/${walletAddress}`,
+    const response = await socialfi.profiles.suggestedGlobalDetail({
+      apiKey: process.env.TAPESTRY_API_KEY || '',
+      identifier: walletAddress,
     })
 
     return NextResponse.json(response)

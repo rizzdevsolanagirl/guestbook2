@@ -1,5 +1,4 @@
 import { useCurrentWallet } from '@/components/auth/hooks/use-current-wallet'
-import { Button } from '@/components/common/button'
 import { abbreviateWalletAddress } from '@/components/common/tools'
 import { FollowButton } from '@/components/profile/follow-button'
 import { ISuggestedProfile } from '@/models/profile.models'
@@ -10,7 +9,7 @@ import Image from 'next/image'
 interface Props {
   title: string
   data?: ISuggestedProfile[]
-  type: 'follow' | 'invite'
+  type: 'follow' | 'suggestedGlobal'
 }
 
 export function SuggestedEntry({ title, data, type }: Props) {
@@ -77,7 +76,7 @@ export function SuggestedEntry({ title, data, type }: Props) {
                   {type === 'follow' && mainUsername && walletAddress && (
                     <FollowButton username={item.profile.username} />
                   )}
-                  {type === 'invite' && <Button disabled>invite</Button>}
+                  {/* {type === 'suggestedGlobal' && <Button disabled>invite</Button>} */}
                 </div>
               </div>
             ))}
