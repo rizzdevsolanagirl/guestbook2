@@ -1,4 +1,4 @@
-import { RPCResponse, TokenResponse } from '@/models/sse.models'
+import { RPCResponse, TokenResponse } from '@/models/token.models'
 import { NextResponse } from 'next/server'
 
 const RPC_URL = process.env.RPC_URL || ''

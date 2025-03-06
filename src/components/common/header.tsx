@@ -69,7 +69,7 @@ export function Header() {
                   <Menu size={20} />
                 </Button>
                 {isDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-muted shadow-lg rounded-md overflow-hidden z-50">
+                  <div className="absolute right-0 mt-2 w-48 bg-gray-800 shadow-lg rounded-md overflow-hidden z-50">
                     <div className="border-b border-muted-light">
                       <Button
                         variant="ghost"
@@ -109,12 +109,12 @@ export function Header() {
                     <Button
                       variant="ghost"
                       onClick={() => {
-                        router.push('/sse')
+                        router.push('/token')
                         setIsDropdownOpen(false)
                       }}
                       className="px-4 py-2 hover:bg-muted-light w-full"
                     >
-                      <HandCoins size={16} className="mr-2" /> sse
+                      <HandCoins size={16} className="mr-2" /> tokens
                     </Button>
 
                     <Button
