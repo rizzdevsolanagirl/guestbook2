@@ -87,3 +87,18 @@ export interface IIdentity {
   }
   namespace: INamespace
 }
+
+export interface IWallet {
+  id: string
+  created_at: number
+  blockchain: string
+  wallet_type: string
+}
+
+export interface IProfileWithWallets extends IProfile {
+  wallets: IWallet[]
+}
+
+export interface IProfileTokenDetails {
+  profiles: IProfileWithWallets[]
+}

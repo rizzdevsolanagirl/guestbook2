@@ -1,11 +1,10 @@
 'use client'
 
-import { TokenDetails } from '@/components/sse/token-details'
+import { TokenInfos } from '@/components/token/token-infos'
 
-export function SseContainer() {
+export function TokenContainer() {
   const tokenList = [
     'H4phNbsqjV5rqk8u6FUACTLB6rNZRTAPGnBb8KXJpump',
-    '6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN',
     '3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh',
     '7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs',
     '4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R',
@@ -21,7 +20,7 @@ export function SseContainer() {
   return (
     <div className="grid grid-cols-4 gap-4">
       {tokenList.map((id, index) => (
-        <TokenDetails key={index} id={id} />
+        <TokenInfos key={index} id={id} />
       ))}
     </div>
   )
