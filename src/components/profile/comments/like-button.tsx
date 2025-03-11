@@ -34,7 +34,7 @@ export function LikeButton({
   return (
     <div className="flex items-end justify-end">
       <div className="flex items-center space-x-1">
-        <p className="text-muted-light">{likeCount}</p>
+        <p className="text-gray">{likeCount}</p>
         <Button variant="ghost" onClick={handleToggleLike}>
           <Heart
             className={cn('text-muted-light', {
