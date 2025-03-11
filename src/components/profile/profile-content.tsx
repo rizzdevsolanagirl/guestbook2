@@ -1,3 +1,4 @@
+import { Comments } from '@/components/profile/comments/comments'
 import { FollowList } from '@/components/profile/follow-list'
 import { MyProfile } from '@/components/profile/my-profile'
 import { DisplaySuggestedAndGlobal } from '@/components/suggested-and-creators-invite/hooks/display-suggested-and-global'
@@ -17,12 +18,13 @@ export async function ProfileContent({ username }: Props) {
   })
 
   return (
-    <div>
+    <div className="space-y-4">
       <MyProfile username={username} />
-      <div className="flex w-full justify-between space-x-4 mt-4">
+      <div className="flex w-full justify-between space-x-4">
         <FollowList followers={followers} following={following} />
         <DisplaySuggestedAndGlobal username={username} />
       </div>
+      <Comments username={username} />
     </div>
   )
 }

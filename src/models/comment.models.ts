@@ -1,17 +1,43 @@
-export interface IComment {
-  namespace: string
-  created_at: string
+import { IPaginatedResponse } from '@/models/common.models'
+
+interface IComment {
   id: string
+  created_at: number
   text: string
 }
 
-export interface ICreateCommentInput {
-  profileId: string
-  contentId: string
-  text: string
-  commentId?: string
+interface IAuthor {
+  id: string
+  namespace: string
+  created_at: number
+  username: string
+  bio: string
+  image: string
 }
 
-export interface ICreateCommentResponse {
+interface ISocialCounts {
+  likeCount: number
+}
+
+interface IRequestingProfileSocialInfo {
+  hasLiked: boolean
+}
+
+export interface IComments {
   comment: IComment
+  contentId: string
+  author: IAuthor
+  socialCounts: ISocialCounts
+  requestingProfileSocialInfo: IRequestingProfileSocialInfo
+  recentReplies: Array<{
+    comment: IComment
+    contentId: string
+    author: IAuthor
+    socialCounts: ISocialCounts
+    requestingProfileSocialInfo: IRequestingProfileSocialInfo
+  }>
+}
+
+export interface ICommentsResponse extends IPaginatedResponse {
+  comments: IComments[]
 }

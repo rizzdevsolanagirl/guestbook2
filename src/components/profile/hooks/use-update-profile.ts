@@ -17,9 +17,6 @@ export const useUpdateProfileInfo = ({ username }: Props) => {
     setError(null)
     setSuccess(false)
 
-
-
-    
     try {
       const response = await fetch(`/api/profiles/info?username=${username}`, {
         method: 'PUT',
