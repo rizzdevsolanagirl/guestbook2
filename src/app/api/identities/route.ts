@@ -1,5 +1,3 @@
-// app/api/profiles/findAllProfiles/route.ts
-
 import { socialfi } from '@/utils/socialfi'
 import { NextRequest, NextResponse } from 'next/server'
 

@@ -37,8 +37,6 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
     walletAddress: walletAddress || '',
   })
 
-  console.log(identities)
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (walletAddress && username) {

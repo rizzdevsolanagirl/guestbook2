@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <AppWalletProvider>
           <Header />
-          <div className="max-w-6xl mx-auto pt-12">{children}</div>
+          <div className="max-w-6xl mx-auto pt-12 pb-22">{children}</div>
         </AppWalletProvider>
       </body>
     </html>
