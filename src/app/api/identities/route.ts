@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
   const walletAddress = searchParams.get('walletAddress')
 
   try {
-    const response = await socialfi.identities.profilesDetail({
+    const response = await socialfi.identities.identitiesDetail({
       id: walletAddress || '',
       apiKey: process.env.TAPESTRY_API_KEY || '',
     })

@@ -2,7 +2,7 @@ import { socialfi } from '@/utils/socialfi'
 
 export const getFollowers = async ({ username }: { username: string }) => {
   try {
-    const response = await socialfi.profiles.followersDetail({
+    const response = await socialfi.profiles.followersList({
       id: username,
       apiKey: process.env.TAPESTRY_API_KEY || '',
     })
@@ -14,7 +14,7 @@ export const getFollowers = async ({ username }: { username: string }) => {
 
 export const getFollowing = async ({ username }: { username: string }) => {
   try {
-    const response = await socialfi.profiles.followingDetail({
+    const response = await socialfi.profiles.followingList({
       id: username,
       apiKey: process.env.TAPESTRY_API_KEY || '',
     })
