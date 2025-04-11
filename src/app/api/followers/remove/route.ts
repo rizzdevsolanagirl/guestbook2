@@ -7,7 +7,6 @@ interface UnFollowRequestBody {
 }
 
 export async function POST(req: NextRequest) {
-  console.log('Removing follower')
   try {
     const { followerUser, followeeUser }: UnFollowRequestBody = await req.json()
 
@@ -18,7 +17,7 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    const response = await socialfi.followers.postFollowers(
+    const response = await socialfi.followers.removeCreate(
       {
         apiKey: process.env.TAPESTRY_API_KEY || '',
       },

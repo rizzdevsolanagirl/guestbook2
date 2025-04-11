@@ -5,8 +5,8 @@ import { Button } from '@/components/common/button'
 import { LoadCircle } from '@/components/common/load-circle'
 import { useFollowUser } from '@/components/profile/hooks/use-follow-user'
 import { useGetFollowersState } from '@/components/profile/hooks/use-get-follower-state'
-import { UserRoundCheck } from 'lucide-react'
 import { useCurrentWallet } from '../auth/hooks/use-current-wallet'
+import { useUnfollowUser } from './hooks/use-unfollow-user'
 
 interface Props {
   username: string
@@ -16,6 +16,7 @@ export function FollowButton({ username }: Props) {
   const { walletAddress, mainUsername, loadingMainUsername } =
     useCurrentWallet()
   const { followUser, loading, error, success } = useFollowUser()
+  const { unfollowUser } = useUnfollowUser()
 
   const { data } = useGetFollowersState({
     followeeUsername: username,
@@ -24,21 +25,26 @@ export function FollowButton({ username }: Props) {
 
   const isFollowing = data?.isFollowing
 
-  const handleFollow = async () => {
+  const handleFollowToggleClicked = async () => {
     if (mainUsername && username) {
-      await followUser({
-        followerUsername: mainUsername,
-        followeeUsername: username,
-      })
+      if (isFollowing) {
+        await unfollowUser({
+          followerUsername: mainUsername,
+          followeeUsername: username,
+        })
+      } else {
+        await followUser({
+          followerUsername: mainUsername,
+          followeeUsername: username,
+        })
+      }
+    } else {
+      console.error('No main username or followee username')
     }
   }
 
   if (!walletAddress) {
     return null
-  }
-
-  if (isFollowing) {
-    return <UserRoundCheck size={20} />
   }
 
   if (mainUsername === username) {
@@ -52,8 +58,8 @@ export function FollowButton({ username }: Props) {
           <LoadCircle />
         </span>
       ) : (
-        <Button onClick={handleFollow} disabled={loading}>
-          {loading ? 'Following...' : 'Follow'}
+        <Button onClick={handleFollowToggleClicked} disabled={loading}>
+          {isFollowing ? 'Unfollow' : 'Follow'}
         </Button>
       )}
 
