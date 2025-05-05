@@ -53,7 +53,7 @@ export function Header() {
     <div className="border-b-1 border-muted flex items-center justify-center w-full p-1">
       <div className="max-w-6xl w-full flex items-center justify-between">
         <Link href="/" className="hover:opacity-80">
-          <h1 className="text-2xl font-bold">Tapestry Template</h1>
+          <h1 className="text-2xl font-bold">Solana Starter Kit Template</h1>
         </Link>
 
         <div className="flex items-center space-x-6">
