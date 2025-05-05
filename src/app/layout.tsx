@@ -8,8 +8,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Tapestry template',
-  description: 'Create your first Tapestry protocol app',
+  title: 'Solana Starter Kit',
+  description: 'Take your Solana App idea from 0 to 1',
 }
 
 export default function RootLayout({
