@@ -15,7 +15,7 @@ cd solana-starter-kit
 
 ### 2. Get API Keys
 At this stage, you need to sign up for API keys from each infrastructure partner required for your project. Use the links below to sign up:
-- **Privy**: Web3 authentication and embedded wallet infrastructure – <a href="https://console.privy.io/signup" target="_blank">Sign up for Privy</a>
+- **Privy**: Web3 authentication and embedded wallet infrastructure – <a href="https://dashboard.privy.io" target="_blank">Sign up for Privy</a>
 - **Tapestry**: Social graph and onchain identity API – <a href="https://app.usetapestry.dev/" target="_blank">Get Early Access at Tapestry</a>
 - **Zerion**: Blockchain portfolio and wallet data API – <a href="https://zerion-io.typeform.com/to/wTY30GPv" target="_blank">Request a Zerion API Key</a>
 - **0x**: Open source liquidity and trading API – <a href="https://0x.org/docs/api" target="_blank">Explore 0x API docs</a>
