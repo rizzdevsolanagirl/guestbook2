@@ -15,10 +15,10 @@ cd solana-starter-kit
 
 ### 2. Get API Keys
 At this stage, you need to sign up for API keys from each infrastructure partner required for your project. Use the links below to sign up:
-- **Tapestry**: Social graph and onchain identity API – [Get Early Access at Tapestry](https://app.usetapestry.dev/)
-- **Zerion**: Blockchain portfolio and wallet data API – [Request an API key on Zerion Help Center](https://help.zerion.io/en/articles/5351183-how-can-i-get-a-zerion-api-key)
-- **0x**: Open source liquidity and trading API – [Explore 0x API docs](https://0x.org/docs/api)
-- **Helius**: Real-time Solana RPC platform - [Sign up at Helius](https://dashboard.helius.dev/)
+- **Tapestry**: Social graph and onchain identity API – <a href="https://app.usetapestry.dev/" target="_blank">Get Early Access at Tapestry</a>
+- **Zerion**: Blockchain portfolio and wallet data API – <a href="https://zerion-io.typeform.com/to/wTY30GPv" target="_blank">Request a Zerion API Key</a>
+- **0x**: Open source liquidity and trading API – <a href="https://0x.org/docs/api" target="_blank">Explore 0x API docs</a>
+- **Helius**: Real-time Solana RPC platform - <a href="https://dashboard.helius.dev/" target="_blank">Sign up at Helius</a>
 
 
 ### 3. Configure Environment
@@ -26,7 +26,25 @@ Create a `.env` file at the project root and paste in your API credentials:
 
 #TODO
 
-### 4. Start Building
+### 4. Add Docs to Cursor
+Navigate to Cursor > Cursor Settings > Features > Docs
+
+Add the following docs URLs so Cursor can access them at any time:
+
+- **Tapestry**: Social graph and onchain identity API
+  https://docs.usetapestry.dev/api
+
+- **Zerion**: Blockchain portfolio and wallet data API
+  https://developers.zerion.io/reference/intro/getting-started
+
+- **0x**: Open source liquidity and trading API
+  https://0x.org/docs/api
+
+- **Helius**: Real-time Solana RPC platform
+  https://docs.helius.dev/
+
+
+### 5. Install Dependencies and Get Started
 Install dependencies and run the development server to begin coding:
 
 ```bash
