@@ -31,17 +31,13 @@ Navigate to Cursor > Cursor Settings > Features > Docs
 
 Add the following docs URLs so Cursor can access them at any time:
 
-- **Tapestry**: Social graph and onchain identity API
-  https://docs.usetapestry.dev/api
+- **Tapestry**: https://docs.usetapestry.dev/api
 
-- **Zerion**: Blockchain portfolio and wallet data API
-  https://developers.zerion.io/reference/intro/getting-started
+- **Zerion**: https://developers.zerion.io/reference/intro/getting-started
 
-- **0x**: Open source liquidity and trading API
-  https://0x.org/docs/api
+- **0x**: https://0x.org/docs/api
 
-- **Helius**: Real-time Solana RPC platform
-  https://docs.helius.dev/
+- **Helius**: https://docs.helius.dev/
 
 
 ### 5. Install Dependencies and Get Started
