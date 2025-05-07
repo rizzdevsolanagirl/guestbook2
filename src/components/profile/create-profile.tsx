@@ -10,17 +10,24 @@ import { useCreateProfile } from '@/components/profile/hooks/use-create-profile'
 import { useGetIdentities } from '@/components/profile/hooks/use-get-identities'
 import { IIdentity, IProfileList } from '@/models/profile.models'
 import { cn } from '@/utils/utils'
+import { usePrivy } from '@privy-io/react-auth'
 import { User } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
 
 interface Props {
   setCreateProfileDialog: (isOpen: boolean) => void
+  setIsProfileCreated: (val: boolean) => void
+  setProfileUsername: (val: string) => void
 }
 
-export function CreateProfile({ setCreateProfileDialog }: Props) {
-  const { walletAddress, loadingMainUsername, walletDisconnect } =
-    useCurrentWallet()
+export function CreateProfile({
+  setCreateProfileDialog,
+  setIsProfileCreated,
+  setProfileUsername,
+}: Props) {
+  const { walletAddress, loadingMainUsername } = useCurrentWallet()
+  const { logout } = usePrivy()
 
   const [username, setUsername] = useState('')
 
@@ -41,6 +48,8 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
     e.preventDefault()
     if (walletAddress && username) {
       await createProfile({ username, walletAddress })
+      setIsProfileCreated(true)
+      setProfileUsername(username)
       setCreateProfileDialog(false)
     }
   }
@@ -185,7 +194,7 @@ export function CreateProfile({ setCreateProfileDialog }: Props) {
             className="w-full text-xs underline justify-center"
             variant="ghost"
             onClick={() => {
-              walletDisconnect()
+              logout()
               setCreateProfileDialog(false)
             }}
           >

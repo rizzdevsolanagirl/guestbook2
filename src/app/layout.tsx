@@ -1,5 +1,5 @@
-import { AppWalletProvider } from '@/components/auth/unified-wallet-provider'
 import { Header } from '@/components/common/header'
+import { PrivyClientProvider } from '@/components/provider/PrivyClientProvider'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ReactNode } from 'react'
@@ -20,10 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AppWalletProvider>
+        <PrivyClientProvider>
           <Header />
           <div className="max-w-6xl mx-auto pt-12 pb-22">{children}</div>
-        </AppWalletProvider>
+        </PrivyClientProvider>
       </body>
     </html>
   )
