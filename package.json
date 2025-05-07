@@ -13,7 +13,7 @@
     "@dialectlabs/react-ui": "^2.2.0",
     "@emotion/react": "^11.14.0",
     "@eslint/eslintrc": "^3.3.0",
-    "@jup-ag/wallet-adapter": "1.0.0-alpha-5",
+    "@privy-io/react-auth": "^2.13.0",
     "@solana/spl-token": "^0.4.12",
     "@solana/wallet-adapter-base": "^0.9.23",
     "@solana/wallet-adapter-wallets": "^0.19.32",
