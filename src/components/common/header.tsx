@@ -4,6 +4,7 @@ import { Button } from '@/components/common/button'
 import { abbreviateWalletAddress } from '@/components/common/tools'
 import { useLogin, usePrivy } from '@privy-io/react-auth'
 import {
+  ArrowLeftRight,
   Check,
   Clipboard,
   HandCoins,
@@ -146,6 +147,17 @@ export function Header() {
 
                         <Button
                           variant="ghost"
+                          onClick={() => {
+                            router.push('/trade')
+                            setIsDropdownOpen(false)
+                          }}
+                          className="px-4 py-2 hover:bg-muted-light w-full"
+                        >
+                          <ArrowLeftRight size={16} className="mr-2" /> Swap
+                        </Button>
+
+                        <Button
+                          variant="ghost"
                           className="px-4 py-2 hover:bg-muted-light w-full !text-red-500"
                           onClick={logout}
                         >
@@ -179,7 +191,7 @@ export function Header() {
             <div className="flex items-center gap-2">
               <DialectNotificationComponent />
               <Link
-                href="https://github.com/Primitives-xyz/tapestry-template"
+                href="https://github.com/Primitives-xyz/solana-starter-kit"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:opacity-80 flex items-center"
