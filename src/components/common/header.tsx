@@ -4,13 +4,14 @@ import { Button } from '@/components/common/button'
 import { abbreviateWalletAddress } from '@/components/common/tools'
 import { useLogin, usePrivy } from '@privy-io/react-auth'
 import {
-  ArrowLeftRight,
   Check,
   Clipboard,
-  HandCoins,
-  House,
+  Coins,
+  Home,
+  LogIn,
   LogOut,
   Menu,
+  RefreshCw,
   User,
 } from 'lucide-react'
 import Image from 'next/image'
@@ -75,13 +76,40 @@ export function Header() {
 
   return (
     <>
-      <div className="border-b-1 border-muted flex items-center justify-center w-full p-1">
+      <div className="border-b-1 border-muted flex items-center justify-center w-full p-3">
         <div className="max-w-6xl w-full flex items-center justify-between">
-          <Link href="/" className="hover:opacity-80">
+          <Link 
+            href="/" 
+            className="hover:opacity-80"
+          >
             <h1 className="text-2xl font-bold">Solana Starter Kit Template</h1>
           </Link>
 
-          <div className="flex items-center space-x-6">
+          <nav className="flex items-center space-x-8">
+            <Link
+              href="/"
+              className="flex items-center hover:opacity-80 transition-opacity"
+            >
+              <Home className="h-4 w-4 mr-2" />
+              <span>Home</span>
+            </Link>
+
+            <Link
+              href="/token"
+              className="flex items-center hover:opacity-80 transition-opacity"
+            >
+              <Coins className="h-4 w-4 mr-2" />
+              <span>Tokens</span>
+            </Link>
+
+            <Link
+              href="/trade"
+              className="flex items-center hover:opacity-80 transition-opacity"
+            >
+              <RefreshCw className="h-4 w-4 mr-2" />
+              <span>Swap</span>
+            </Link>
+
             {ready && authenticated ? (
               mainUsername ? (
                 <div className="flex items-center relative" ref={dropdownRef}>
@@ -112,16 +140,6 @@ export function Header() {
                             })}
                           </Button>
                         </div>
-                        <Button
-                          variant="ghost"
-                          onClick={() => {
-                            router.push('/')
-                            setIsDropdownOpen(false)
-                          }}
-                          className="px-4 py-2 hover:bg-muted-light w-full"
-                        >
-                          <House size={16} className="mr-2" /> home
-                        </Button>
 
                         <Button
                           variant="ghost"
@@ -131,29 +149,7 @@ export function Header() {
                           }}
                           className="px-4 py-2 hover:bg-muted-light w-full"
                         >
-                          <User size={16} className="mr-2" /> my profile
-                        </Button>
-
-                        <Button
-                          variant="ghost"
-                          onClick={() => {
-                            router.push('/token')
-                            setIsDropdownOpen(false)
-                          }}
-                          className="px-4 py-2 hover:bg-muted-light w-full"
-                        >
-                          <HandCoins size={16} className="mr-2" /> tokens
-                        </Button>
-
-                        <Button
-                          variant="ghost"
-                          onClick={() => {
-                            router.push('/trade')
-                            setIsDropdownOpen(false)
-                          }}
-                          className="px-4 py-2 hover:bg-muted-light w-full"
-                        >
-                          <ArrowLeftRight size={16} className="mr-2" /> Swap
+                          <User size={16} className="mr-2" /> My Profile
                         </Button>
 
                         <Button
@@ -161,7 +157,7 @@ export function Header() {
                           className="px-4 py-2 hover:bg-muted-light w-full !text-red-500"
                           onClick={logout}
                         >
-                          <LogOut size={16} className="mr-2" /> log out
+                          <LogOut size={16} className="mr-2" /> Log Out
                         </Button>
                       </div>
                     )}
@@ -176,6 +172,7 @@ export function Header() {
             ) : (
               <Button
                 variant="ghost"
+                className='!text-green-500'
                 disabled={disableLogin}
                 onClick={() =>
                   login({
@@ -185,9 +182,10 @@ export function Header() {
                   })
                 }
               >
-                Log in
+                <LogIn className="h-4 w-4 mr-2" /> Log in
               </Button>
             )}
+
             <div className="flex items-center gap-2">
               <DialectNotificationComponent />
               <Link
@@ -204,7 +202,7 @@ export function Header() {
                 />
               </Link>
             </div>
-          </div>
+          </nav>
         </div>
       </div>
     </>
