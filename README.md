@@ -22,9 +22,13 @@ At this stage, you need to sign up for API keys from each infrastructure partner
 
 
 ### 3. Configure Environment
-Create a `.env` file at the project root and paste in your API credentials:
+Rename the `.env.example` file to `.env.local` and update it with your API credentials:
 
-#TODO
+```bash
+cp .env.example .env.local
+```
+
+Then open the `.env.local` file and replace the placeholder values with your actual API keys. For Next.js applications, any environment variables used in the browser must be prefixed with `NEXT_PUBLIC_`.
 
 ### 4. Add Docs to Cursor
 Navigate to Cursor > Cursor Settings > Features > Docs
