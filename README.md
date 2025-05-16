@@ -50,8 +50,8 @@ Add the following docs URLs so Cursor can access them at any time:
 Install dependencies and run the development server to begin coding:
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 Now you're all set to start coding! Begin by exploring the codebase, and use our documentation to guide your development.
