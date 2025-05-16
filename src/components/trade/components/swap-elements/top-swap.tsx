@@ -1,10 +1,10 @@
 'use client'
 
+import { Card, CardContent } from '@/components/ui/card'
+import { ArrowDownUp } from 'lucide-react'
+import { ESwapMode } from '../../models/jupiter/jup-api-models'
 import { Pay } from './pay'
 import { Receive } from './received'
-import { ArrowDownUp } from 'lucide-react'
-import { Card, CardContent } from '@/components/ui/card'
-import { ESwapMode } from '../../models/jupiter/jup-api-models'
 
 interface Props {
   walletAddress: string
@@ -48,8 +48,8 @@ export function TopSwap({
   setShowOutputTokenSearch,
 }: Props) {
   return (
-    <Card className="border-glow-animation">
-      <CardContent className="p-4">
+    <Card className="border-glow-animation flex-1">
+      <CardContent className="p-4 flex flex-col gap-4">
         <Pay
           walletAddress={walletAddress}
           inputTokenMint={inputTokenMint}
@@ -65,11 +65,13 @@ export function TopSwap({
 
         <div className="flex items-center w-full justify-between text-muted space-x-2">
           <div className="bg-muted w-full h-[1px]" />
-          <ArrowDownUp
-            size={40}
-            className="cursor-pointer"
-            onClick={handleSwapDirection}
-          />
+          <div className="p-2 bg-zinc-900 rounded-full hover:bg-zinc-800 transition-colors">
+            <ArrowDownUp
+              size={24}
+              className="cursor-pointer"
+              onClick={handleSwapDirection}
+            />
+          </div>
           <div className="bg-muted w-full h-[1px]" />
         </div>
 

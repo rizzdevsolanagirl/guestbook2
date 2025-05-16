@@ -1,11 +1,15 @@
 'use client'
 
 // import { TokenBalance } from '@/components/common/left-side-menu/balance'
-import { Button, ButtonSize, ButtonVariant } from '@/components/ui/button'
+import { useTokenBalance } from '@/components/token/hooks/use-token-balance'
+import {
+  Button,
+  ButtonSize,
+  ButtonVariant,
+} from '@/components/ui/custom-button'
 import { Input } from '@/components/ui/form'
 import { ChevronDownIcon } from 'lucide-react'
 import Image from 'next/image'
-import { useTokenBalance } from '@/components/token/hooks/use-token-balance'
 import { ESwapMode } from '../../models/jupiter/jup-api-models'
 
 interface Props {
@@ -40,16 +44,16 @@ export function Pay({
     { label: '50%', value: 50 },
     { label: 'max', value: 100 },
   ]
-  const { balance: inputBalance } =
-    useTokenBalance(inputTokenMint, walletAddress)
+  const { balance: inputBalance } = useTokenBalance(
+    inputTokenMint,
+    walletAddress,
+  )
 
   return (
     <div>
       <div className="flex justify-between items-center">
         <p>Selling</p>
-        <p className="text-xs text-muted-foreground">
-          Balance:{inputBalance}
-        </p>
+        <p className="text-xs text-muted-foreground">Balance:{inputBalance}</p>
       </div>
 
       <div className="flex justify-between items-center">

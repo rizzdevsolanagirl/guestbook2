@@ -4,7 +4,11 @@ import { useCurrentWallet } from '@/components/auth/hooks/use-current-wallet'
 import { useTokenBalance } from '@/components/token/hooks/use-token-balance'
 import { useTokenInfo } from '@/components/token/hooks/use-token-info'
 import { useTokenUSDCPrice } from '@/components/token/hooks/use-token-usdc-price'
-import { Button, ButtonSize, ButtonVariant } from '@/components/ui/button'
+import {
+  Button,
+  ButtonSize,
+  ButtonVariant,
+} from '@/components/ui/custom-button'
 import { Spinner } from '@/components/ui/spinner'
 import {
   formatLargeNumber,
@@ -48,7 +52,12 @@ const validateAmount = (value: string, decimals: number = 6): boolean => {
   return true
 }
 
-export function Swap() {
+interface SwapProps {
+  onTokenChange?: (address: string, symbol: string) => void
+  onOutputTokenChange?: (address: string, symbol: string) => void
+}
+
+export function Swap({ onTokenChange, onOutputTokenChange }: SwapProps) {
   const { replace } = useRouter()
   const { walletAddress } = useCurrentWallet()
   const { ready, wallets } = useSolanaWallets()
@@ -193,6 +202,11 @@ export function Swap() {
       outputMint: outputTokenMint,
       inputAmount: parseFloat(inAmount),
     })
+
+    // Notify parent component about token change
+    if (onTokenChange) {
+      onTokenChange(token.address, token.symbol)
+    }
   }
 
   const handleOutputTokenSelect = (token: {
@@ -207,6 +221,11 @@ export function Swap() {
       outputMint: token.address,
       inputAmount: parseFloat(inAmount),
     })
+
+    // Notify parent component about output token change
+    if (onOutputTokenChange) {
+      onOutputTokenChange(token.address, token.symbol)
+    }
   }
 
   const updateTokensInURL = useCallback(
@@ -301,7 +320,7 @@ export function Swap() {
   }, [walletAddress])
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 flex flex-col flex-grow">
       <TopSwap
         walletAddress={walletAddress}
         inputTokenMint={inputTokenMint}
@@ -323,7 +342,7 @@ export function Swap() {
         handleSwapDirection={handleSwapDirection}
       />
 
-      <div className="w-full">
+      <div className="w-full mt-auto">
         {walletAddress !== '' ? (
           <Button
             variant={ButtonVariant.OUTLINE}

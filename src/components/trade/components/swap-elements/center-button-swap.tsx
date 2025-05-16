@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, ButtonSize } from '@/components/ui/button'
+import { Button, ButtonSize } from '@/components/ui/custom-button'
 import { Spinner } from '@/components/ui/spinner'
 
 interface Props {

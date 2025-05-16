@@ -1,9 +1,9 @@
 'use client'
 
+import { Button, ButtonVariant } from '@/components/ui/custom-button'
+import { Check } from 'lucide-react'
 import Image from 'next/image'
 import { ITokenSearchResult } from '../../models/jupiter/jup-api-models'
-import { Button, ButtonVariant } from '@/components/ui/button'
-import { Check } from 'lucide-react'
 import { formatMarketCap, formatPrice } from '../../utils/utils'
 
 interface TokenListItemProps {
@@ -12,7 +12,6 @@ interface TokenListItemProps {
 }
 
 export function TokenListItem({ token, onSelect }: TokenListItemProps) {
-
   // Format balance to a readable format
   const formattedBalance = token.uiAmount
     ? token.uiAmount.toLocaleString(undefined, {

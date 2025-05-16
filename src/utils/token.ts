@@ -1,3 +1,4 @@
+import { FungibleTokenInfo } from '@/models/token.models'
 import {
   ASSOCIATED_TOKEN_PROGRAM_ID,
   createAssociatedTokenAccountInstruction,
@@ -10,10 +11,10 @@ import {
   Keypair,
   PublicKey,
   Transaction,
+  TransactionInstruction,
 } from '@solana/web3.js'
-import { FungibleTokenInfo } from '@/models/token.models'
-import { fetchTokenInfo } from './helius/das-api'
 import { addPriorityFee } from '../utils/priority-fee'
+import { fetchTokenInfo } from './helius/das-api'
 import { confirmTransactionFast } from './transactions'
 
 async function createATA(
@@ -224,4 +225,103 @@ export const getAssociatedTokenAccount = (
   )[0]
 
   return associatedTokenAccountPubkey
+}
+
+/**
+ * Creates instructions to create an Associated Token Account (ATA) if it doesn't exist
+ * @param connection - Solana connection instance
+ * @param payer - PublicKey of the account paying for the transaction
+ * @param mint - PublicKey of the token mint
+ * @param owner - PublicKey of the account that will own the ATA
+ * @returns Promise with the ATA address and instructions to create it (if needed)
+ */
+export async function getCreateATAInstructions(
+  connection: Connection,
+  payer: PublicKey,
+  mint: PublicKey,
+  owner: PublicKey,
+): Promise<{
+  ata: PublicKey
+  instructions: TransactionInstruction[]
+  needsCreation: boolean
+}> {
+  const tokenInfo = await fetchTokenInfo(mint.toString())
+
+  if (!tokenInfo) {
+    throw new Error('Failed to fetch token info')
+  }
+
+  // Check if token is fungible
+  if (
+    tokenInfo.result.interface !== 'FungibleToken' &&
+    tokenInfo.result.interface !== 'FungibleAsset'
+  ) {
+    throw new Error('Token is not fungible')
+  }
+
+  // Get the token program from the token info
+  const tokenProgram = new PublicKey(
+    (tokenInfo.result as FungibleTokenInfo).token_info.token_program,
+  )
+
+  if (!tokenProgram) {
+    throw new Error('Token program not found')
+  }
+
+  console.log(
+    JSON.stringify(
+      {
+        operation: 'getCreateATAInstructions:tokenProgram',
+        tokenProgram: tokenProgram.toString(),
+      },
+      null,
+      2,
+    ),
+  )
+
+  // Get the ATA address
+  const ata = await getAssociatedTokenAddress(
+    mint,
+    owner,
+    false, // Don't allow owner off curve
+    tokenProgram,
+  )
+
+  // Check if the account already exists
+  const accountInfo = await connection.getAccountInfo(ata)
+  if (accountInfo) {
+    console.log(
+      JSON.stringify(
+        {
+          operation: 'getCreateATAInstructions:exists',
+          ata: ata.toString(),
+          mint: mint.toString(),
+          owner: owner.toString(),
+          tokenProgram: tokenProgram.toString(),
+        },
+        null,
+        2,
+      ),
+    )
+    return { ata, instructions: [], needsCreation: false }
+  }
+
+  // Create the instruction to create the ATA
+  const createInstruction = createAssociatedTokenAccountInstruction(
+    payer,
+    ata,
+    owner,
+    mint,
+    tokenProgram,
+  )
+
+  const computeUnitLimitInstruction = ComputeBudgetProgram.setComputeUnitLimit({
+    units: 32_000,
+  })
+
+  return {
+    ata,
+    instructions: [computeUnitLimitInstruction, createInstruction],
+    needsCreation: true,
+  }
 }

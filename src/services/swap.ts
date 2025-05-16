@@ -6,7 +6,7 @@ import {
   simulateTransaction,
 } from '@/services/jupiter'
 import type { SwapRouteResponse } from '@/types/jupiter-service'
-import { createATAIfNotExists } from '@/utils/token'
+import { getCreateATAInstructions } from '@/utils/token'
 import {
   Connection,
   Keypair,
@@ -47,44 +47,6 @@ export class SwapService {
     return new Promise((resolve) => setTimeout(resolve, ms))
   }
 
-  public async verifyOrCreateATA(
-    mintAddress: string,
-    ownerAddress: string,
-    retryCount = 0,
-  ): Promise<PublicKey> {
-    try {
-      // Get the payer ready in case we need it
-      const payer = await this.getPayerKeypair()
-
-      // Call createATAIfNotExists directly - it will handle the existence check
-      const { ata: associatedTokenAddress } =
-        await createATAIfNotExists(
-          this.connection,
-          payer,
-          new PublicKey(mintAddress),
-          new PublicKey(ownerAddress),
-          'High',
-        )
-
-      return associatedTokenAddress
-    } catch (error: any) {
-      const maxRetries = 3
-      if (retryCount < maxRetries) {
-        const delayMs = 500 * Math.pow(2, retryCount) // Exponential backoff: 500ms, 1000ms, 2000ms
-        console.log(
-          `Retrying verifyOrCreateATA attempt ${
-            retryCount + 1
-          }/${maxRetries} after ${delayMs}ms delay`,
-        )
-        await this.delay(delayMs)
-        return this.verifyOrCreateATA(mintAddress, ownerAddress, retryCount + 1)
-      }
-
-      console.error('Error in checking ATA status')
-      throw error
-    }
-  }
-
   // create connection
   public static async createConnection(): Promise<Connection> {
     return new Connection(
@@ -95,6 +57,7 @@ export class SwapService {
   public async buildSwapTransaction(
     request: SwapRequest,
     outputAta: PublicKey,
+    additionalInstructions: any[] = [],
   ): Promise<{
     transaction: VersionedTransaction
     swapResponse: any
@@ -139,6 +102,7 @@ export class SwapService {
         swapResponse,
         undefined,
         addressLookupTableAccounts,
+        additionalInstructions,
       )
 
       return {
@@ -156,16 +120,18 @@ export class SwapService {
     request: SwapRequest,
   ): Promise<SwapRouteResponse> {
     try {
-      // Verify output token ATA
-      const outputAta = await this.verifyOrCreateATA(
-        request.mintAddress,
-        JUPITER_CONFIG.FEE_WALLET,
-        3,
-      )
+      // Check output token ATA and get creation instructions if needed
+      const { ata: outputAta, instructions: ataInstructions } =
+        await getCreateATAInstructions(
+          this.connection,
+          new PublicKey(request.walletAddress),
+          new PublicKey(request.mintAddress),
+          new PublicKey(JUPITER_CONFIG.FEE_WALLET),
+        )
 
-      // Build and simulate transaction
+      // Build and simulate transaction with ATA creation instructions if needed
       const { transaction, swapResponse, addressLookupTableAccounts } =
-        await this.buildSwapTransaction(request, outputAta)
+        await this.buildSwapTransaction(request, outputAta, ataInstructions)
 
       try {
         await simulateTransaction(

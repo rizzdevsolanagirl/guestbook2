@@ -1,9 +1,13 @@
 'use client'
 
+import {
+  Button,
+  ButtonSize,
+  ButtonVariant,
+} from '@/components/ui/custom-button'
+import { Input } from '@/components/ui/form'
 import { ChevronDownIcon } from 'lucide-react'
 import Image from 'next/image'
-import { Button, ButtonSize, ButtonVariant } from '@/components/ui/button'
-import { Input } from '@/components/ui/form'
 import { ESwapMode } from '../../models/jupiter/jup-api-models'
 
 interface Props {
@@ -28,7 +32,6 @@ export function Receive({
   handleOutAmountChange,
   setShowOutputTokenSearch,
 }: Props) {
-
   return (
     <>
       <div>

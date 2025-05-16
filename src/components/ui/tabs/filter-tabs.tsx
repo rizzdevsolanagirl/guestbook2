@@ -1,8 +1,8 @@
 'use client'
 
 import { cn } from '@/utils/utils'
-import { Button, ButtonSize, ButtonVariant } from '../button';
-import { TabVariant } from './tabs.models';
+import { Button, ButtonSize, ButtonVariant } from '../custom-button'
+import { TabVariant } from './tabs.models'
 
 interface FilterTabsProps<T extends string> {
   options: { label: string; value: T }[]

@@ -61,5 +61,9 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: 'Token not found' }, { status: 404 })
   }
 
-  return NextResponse.json(tokenInfo)
+  return NextResponse.json(tokenInfo, {
+    headers: {
+      'Cache-Control': 'public, s-maxage=10',
+    },
+  })
 }
