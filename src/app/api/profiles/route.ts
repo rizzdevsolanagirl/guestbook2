@@ -1,5 +1,5 @@
 import { socialfi } from '@/utils/socialfi'
-import { NextRequest, NextResponse } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
@@ -19,10 +19,16 @@ export async function GET(req: NextRequest) {
     })
 
     return NextResponse.json(response)
-  } catch (error: any) {
-    console.error('Error fetching profiles:', error)
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('Error fetching profiles:', error.message)
+      return NextResponse.json(
+        { error: error.message || 'Failed to fetch profiles' },
+        { status: 500 },
+      )
+    }
     return NextResponse.json(
-      { error: error.message || 'Failed to fetch profiles' },
+      { error: 'An unknown error occurred' },
       { status: 500 },
     )
   }

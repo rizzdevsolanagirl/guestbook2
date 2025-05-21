@@ -1,6 +1,6 @@
 'use client'
 
-import { IProfileResponse } from '@/models/profile.models'
+import type { IProfileResponse } from '@/models/profile.models'
 import { useCallback, useEffect, useState } from 'react'
 
 export const useGetProfileInfo = ({ username }: { username: string }) => {
@@ -26,8 +26,12 @@ export const useGetProfileInfo = ({ username }: { username: string }) => {
       }
 
       setData(result)
-    } catch (err: any) {
-      setError(err.message || 'Something went wrong')
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || 'Something went wrong')
+      } else {
+        setError('An unknown error occurred')
+      }
     } finally {
       setLoading(false)
     }
