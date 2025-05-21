@@ -8,7 +8,6 @@ import { getFollowers, getFollowing } from '@/lib/tapestry'
 import type { IGetSocialResponse } from '@/models/profile.models'
 import { PublicKey } from '@solana/web3.js'
 import { useEffect, useState } from 'react'
-import { useGetProfileInfo } from './hooks/use-get-profile-info'
 import { PortfolioView } from './portfolio-view'
 
 interface Props {
@@ -23,8 +22,6 @@ export function ProfileContent({ username }: Props) {
   const [selectedTab, setSelectedTab] = useState<'profile' | 'portfolio'>(
     'profile',
   )
-
-  const { data } = useGetProfileInfo({ username: profileUsername })
 
   useEffect(() => {
     async function init() {
