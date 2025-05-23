@@ -1,17 +1,17 @@
 @layer theme, base, components, utilities;
 
 @import 'tailwindcss';
-@import "tailwindcss/theme.css" layer(theme);
-@import "tailwindcss/preflight.css" layer(base);
-@import "tailwindcss/utilities.css" layer(utilities);
-@import "tw-animate-css";
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import 'tailwindcss/utilities.css' layer(utilities);
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-gray: #6B7280;
+  --color-gray: #6b7280;
   --color-muted: #111827;
   --color-muted-light: #374151;
   --color-accent: #3b82f6;
@@ -63,7 +63,8 @@
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 0.5rem;
+  /* Light theme - keeping original for compatibility */
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
   --card: oklch(1 0 0);
@@ -98,37 +99,39 @@
 }
 
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  /* Dark theme using zinc color scheme for consistency */
+  --background: #09090b; /* zinc-950 */
+  --foreground: #fafafa; /* zinc-50 */
+  --card: #18181b; /* zinc-900 */
+  --card-foreground: #fafafa; /* zinc-50 */
+  --popover: #18181b; /* zinc-900 */
+  --popover-foreground: #fafafa; /* zinc-50 */
+  --primary: #9333ea; /* purple-600 */
+  --primary-foreground: #fafafa; /* zinc-50 */
+  --secondary: #27272a; /* zinc-800 */
+  --secondary-foreground: #fafafa; /* zinc-50 */
+  --muted: #27272a; /* zinc-800 */
+  --muted-foreground: #a1a1aa; /* zinc-400 */
+  --accent: #3f3f46; /* zinc-700 */
+  --accent-foreground: #fafafa; /* zinc-50 */
+  --destructive: #ef4444; /* red-500 */
+  --destructive-foreground: #fafafa; /* zinc-50 */
+  --border: #27272a; /* zinc-800 */
+  --input: #3f3f46; /* zinc-700 */
+  --ring: #9333ea; /* purple-600 */
+  --chart-1: #9333ea; /* purple-600 */
+  --chart-2: #db2777; /* pink-600 */
+  --chart-3: #06b6d4; /* cyan-500 */
+  --chart-4: #10b981; /* emerald-500 */
+  --chart-5: #f59e0b; /* amber-500 */
+  --sidebar: #18181b; /* zinc-900 */
+  --sidebar-foreground: #fafafa; /* zinc-50 */
+  --sidebar-primary: #9333ea; /* purple-600 */
+  --sidebar-primary-foreground: #fafafa; /* zinc-50 */
+  --sidebar-accent: #27272a; /* zinc-800 */
+  --sidebar-accent-foreground: #fafafa; /* zinc-50 */
+  --sidebar-border: #27272a; /* zinc-800 */
+  --sidebar-ring: #9333ea; /* purple-600 */
 }
 
 @layer base {
@@ -137,5 +140,32 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Global component styles for consistency */
+@layer components {
+  .card-primary {
+    @apply bg-card border border-border rounded-lg;
+  }
+
+  .card-secondary {
+    @apply bg-muted border border-border rounded-lg;
+  }
+
+  .button-primary {
+    @apply bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 transition-all duration-200;
+  }
+
+  .button-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-all duration-200;
+  }
+
+  .button-ghost {
+    @apply bg-transparent text-foreground hover:bg-accent transition-all duration-200;
+  }
+
+  .input-primary {
+    @apply bg-input border border-border text-foreground placeholder:text-muted-foreground focus:border-ring focus:ring-2 focus:ring-ring/20;
   }
 }

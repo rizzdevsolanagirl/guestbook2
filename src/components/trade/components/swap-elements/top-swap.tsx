@@ -2,7 +2,7 @@
 
 import { Card, CardContent } from '@/components/ui/card'
 import { ArrowDownUp } from 'lucide-react'
-import { ESwapMode } from '../../models/jupiter/jup-api-models'
+import type { ESwapMode } from '../../models/jupiter/jup-api-models'
 import { Pay } from './pay'
 import { Receive } from './received'
 
@@ -65,7 +65,7 @@ export function TopSwap({
 
         <div className="flex items-center w-full justify-between text-muted space-x-2">
           <div className="bg-muted w-full h-[1px]" />
-          <div className="p-2 bg-zinc-900 rounded-full hover:bg-zinc-800 transition-colors">
+          <div className="p-2 bg-card rounded-full hover:bg-muted transition-colors">
             <ArrowDownUp
               size={24}
               className="cursor-pointer"

@@ -22,10 +22,10 @@ export function StyledSwap({
           margin-bottom: calc(1rem * var(--tw-space-y-reverse));
         }
 
-        /* Make the card match token chart */
+        /* Make the card match token chart using semantic colors */
         .border-glow-animation {
-          background-color: rgb(9 9 11) !important; /* bg-zinc-950 */
-          border-color: rgb(39 39 42) !important; /* border-zinc-800 */
+          background-color: hsl(var(--background)) !important;
+          border-color: hsl(var(--border)) !important;
           border-width: 1px;
           border-radius: 0.5rem;
         }
@@ -33,10 +33,10 @@ export function StyledSwap({
         /* Override the token input/output containers */
         .bg-background,
         .hover\\:bg-accent-hover {
-          background-color: rgb(24 24 27) !important; /* bg-zinc-900 */
+          background-color: hsl(var(--card)) !important;
         }
 
-        /* Style the swap button */
+        /* Style the swap button using semantic colors */
         button[class*='rounded-full'] {
           background: linear-gradient(
             to right,
@@ -65,7 +65,7 @@ export function StyledSwap({
         }
       `}</style>
 
-      <div className="bg-zinc-950 rounded-lg border border-zinc-800 h-full flex flex-col">
+      <div className="bg-background rounded-lg border border-border h-full flex flex-col">
         <div className="card-content-container p-4">
           <Swap
             onTokenChange={onTokenChange}

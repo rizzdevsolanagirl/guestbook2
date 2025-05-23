@@ -55,7 +55,7 @@ export default function TokenChartWidget({
   }, [tokenAddress, tokenSymbol, outputTokenAddress, outputTokenSymbol])
 
   return (
-    <Card className="bg-zinc-950 border-zinc-800 h-full">
+    <Card className="bg-background border-border h-full">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -98,7 +98,7 @@ export default function TokenChartWidget({
       </CardHeader>
       <CardContent className="flex-grow">
         <Tabs defaultValue={defaultTab} className="w-full h-full">
-          <TabsList className="grid w-full grid-cols-3 bg-zinc-900">
+          <TabsList className="grid w-full grid-cols-3 bg-card">
             <TabsTrigger value="price">Price</TabsTrigger>
             <TabsTrigger value="volume">Volume</TabsTrigger>
             <TabsTrigger value="liquidity">Liquidity</TabsTrigger>

@@ -91,8 +91,12 @@ function TokenRow({
   const token = useTokenInfo(tokenId)
 
   // Generate stable price changes based on index
-  const change24h = parseFloat(generateRandomChange(-5, 10, index * 100 + 1))
-  const change7d = parseFloat(generateRandomChange(-10, 20, index * 100 + 2))
+  const change24h = Number.parseFloat(
+    generateRandomChange(-5, 10, index * 100 + 1),
+  )
+  const change7d = Number.parseFloat(
+    generateRandomChange(-10, 20, index * 100 + 2),
+  )
 
   // Get symbol from name or use a placeholder
   const symbol = useMemo(() => {
@@ -101,7 +105,7 @@ function TokenRow({
   }, [tokenId, token.name])
 
   return (
-    <tr className="border-b border-zinc-800 hover:bg-zinc-900/50">
+    <tr className="border-b border-border hover:bg-card/50">
       <td className="py-4 px-4">{index + 1}</td>
       <td className="py-4 px-4">
         <div className="flex items-center gap-3">
@@ -109,7 +113,7 @@ function TokenRow({
             {token.imageUrl ? (
               <Image src={token.imageUrl} width={32} height={32} alt={symbol} />
             ) : (
-              <div className="h-8 w-8 bg-zinc-800 flex items-center justify-center text-xs">
+              <div className="h-8 w-8 bg-muted flex items-center justify-center text-xs">
                 {!token.loading ? symbol.substring(0, 2) : '...'}
               </div>
             )}

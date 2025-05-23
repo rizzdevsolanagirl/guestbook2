@@ -35,7 +35,7 @@ export default function Page() {
           <h2 className="text-2xl font-bold mb-6">Recent Trades</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[...Array(6)].map((_, i) => (
-              <Card key={i} className="bg-zinc-950 border-zinc-800">
+              <Card key={i} className="bg-background border-border">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
@@ -51,7 +51,7 @@ export default function Page() {
                     </div>
                     <Badge
                       variant="outline"
-                      className="bg-zinc-900 text-zinc-400 border-zinc-800"
+                      className="bg-card text-card-foreground border-border"
                     >
                       {Math.floor(Math.random() * 10) + 1}m ago
                     </Badge>
