@@ -32,6 +32,7 @@ export const useGetIdentities = ({ walletAddress }: Props) => {
         throw new Error(result.error || 'Failed to fetch identities')
       }
 
+      console.log('Identities fetched:', result)
       setData(result)
     } catch (err: any) {
       setError(err.message || 'Something went wrong')

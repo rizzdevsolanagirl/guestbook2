@@ -12,18 +12,24 @@ export const useCreateProfile = () => {
     image?: string | null
   }
 
-  const createProfile = async ({ username, walletAddress, bio, image }: Props) => {
+  const createProfile = async ({
+    username,
+    walletAddress,
+    bio,
+    image,
+  }: Props) => {
     setLoading(true)
     setError(null)
+    setResponse(null)
 
     try {
       const formData = new FormData()
       formData.append('username', username)
       formData.append('ownerWalletAddress', walletAddress)
-      if(bio) {
+      if (bio) {
         formData.append('bio', bio)
       }
-      if(image) {
+      if (image) {
         formData.append('image', image)
       }
 
@@ -39,8 +45,10 @@ export const useCreateProfile = () => {
 
       const data = await res.json()
       setResponse(data)
+      return data
     } catch (err: any) {
       setError(err.message)
+      throw err
     } finally {
       setLoading(false)
     }
