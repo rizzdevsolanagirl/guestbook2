@@ -72,3 +72,11 @@ NEXT_PUBLIC_HELIUS_API_KEY=your_api_key_here
 ```
 
 This allows the application to fetch NFT data from the Solana blockchain using Helius's DAS API.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contributing
+
+We welcome contributions to the Solana Starter Kit! By contributing, you agree that your contributions will be licensed under the MIT License. Please feel free to submit issues, fork the repository, and create pull requests.
