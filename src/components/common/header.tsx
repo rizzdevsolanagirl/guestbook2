@@ -13,6 +13,9 @@ import {
   Menu,
   RefreshCw,
   User,
+  BookOpen,
+  Wallet,
+  AlertCircle,
 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -28,12 +31,15 @@ export function Header() {
   const [mainUsername, setMainUsername] = useState<string | null>(null)
   const [isProfileCreated, setIsProfileCreated] = useState<boolean>(false)
   const [profileUsername, setProfileUsername] = useState<string | null>(null)
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
+  const [connectionError, setConnectionError] = useState<string | null>(null)
+  
   const { profiles } = useGetProfiles({
     walletAddress: walletAddress || '',
   })
-  const { ready, authenticated, logout } = usePrivy()
+  const { ready, authenticated, logout, user } = usePrivy()
   const { login } = useLogin()
-  const disableLogin = !ready || (ready && authenticated)
+  const disableLogin = !ready || (ready && authenticated) || isLoggingOut
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [copied, setCopied] = useState(false)
   const dropdownRef = useRef(null)
@@ -43,6 +49,52 @@ export function Header() {
     navigator.clipboard.writeText(address)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
+  }
+
+  const handleLogout = async () => {
+    try {
+      setIsLoggingOut(true)
+      setConnectionError(null)
+      console.log('Starting logout process...')
+      
+      await logout()
+      console.log('Logout successful')
+      
+      // Reset all local state
+      setIsDropdownOpen(false)
+      setMainUsername(null)
+      setProfileUsername(null)
+      setIsProfileCreated(false)
+      
+      // Force a page refresh to clear any cached state
+      setTimeout(() => {
+        window.location.reload()
+      }, 100)
+      
+    } catch (error) {
+      console.error('Logout error:', error)
+      setConnectionError('Failed to disconnect wallet. Please try refreshing the page.')
+    } finally {
+      setIsLoggingOut(false)
+    }
+  }
+
+  const handleLogin = async () => {
+    try {
+      setConnectionError(null)
+      console.log('Starting login process...')
+      
+      await login({
+        loginMethods: ['wallet'],
+        walletChainType: 'ethereum-and-solana',
+        disableSignup: false,
+      })
+      
+      console.log('Login successful')
+    } catch (error) {
+      console.error('Login error:', error)
+      setConnectionError('Failed to connect wallet. Please try again.')
+    }
   }
 
   useEffect(() => {
@@ -74,6 +126,19 @@ export function Header() {
     }
   }, [profiles, isProfileCreated, profileUsername])
 
+  // Clear connection error after 5 seconds
+  useEffect(() => {
+    if (connectionError) {
+      const timer = setTimeout(() => {
+        setConnectionError(null)
+      }, 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [connectionError])
+
+  // Show wallet info even without profile
+  const displayName = mainUsername || (walletAddress ? `Wallet ${abbreviateWalletAddress({ address: walletAddress })}` : null)
+
   return (
     <>
       <div className="border-b-1 border-muted flex items-center justify-center w-full p-3">
@@ -82,7 +147,7 @@ export function Header() {
             href="/" 
             className="hover:opacity-80"
           >
-            <h1 className="text-2xl font-bold">Solana Starter Kit Template</h1>
+            <h1 className="text-2xl font-bold">Builders Mansion</h1>
           </Link>
 
           <nav className="flex items-center space-x-8">
@@ -92,6 +157,14 @@ export function Header() {
             >
               <Home className="h-4 w-4 mr-2" />
               <span>Home</span>
+            </Link>
+
+            <Link
+              href="/guestbook"
+              className="flex items-center hover:opacity-80 transition-opacity"
+            >
+              <BookOpen className="h-4 w-4 mr-2" />
+              <span>Guestbook</span>
             </Link>
 
             <Link
@@ -111,79 +184,104 @@ export function Header() {
             </Link>
 
             {ready && authenticated ? (
-              mainUsername ? (
-                <div className="flex items-center relative" ref={dropdownRef}>
-                  <div className="relative">
-                    <Button
-                      variant="ghost"
-                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                      className="space-x-2"
-                    >
-                      <p className="truncate font-bold">{mainUsername}</p>
-                      <Menu size={20} />
-                    </Button>
-                    {isDropdownOpen && (
-                      <div className="absolute right-0 mt-2 w-48 bg-gray-800 shadow-lg rounded-md overflow-hidden z-50">
-                        <div className="border-b border-muted-light">
-                          <Button
-                            variant="ghost"
-                            className="px-4 py-2 hover:bg-muted-light w-full"
-                            onClick={() => handleCopy(walletAddress)}
-                          >
-                            {copied ? (
-                              <Check size={16} className="mr-2" />
-                            ) : (
-                              <Clipboard size={16} className="mr-2" />
-                            )}
-                            {abbreviateWalletAddress({
-                              address: walletAddress,
-                            })}
-                          </Button>
+              <div className="flex items-center relative" ref={dropdownRef}>
+                <div className="relative">
+                  <Button
+                    variant="ghost"
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className="space-x-2"
+                  >
+                    {mainUsername ? (
+                      <>
+                        <User className="h-4 w-4" />
+                        <p className="truncate font-bold">{mainUsername}</p>
+                      </>
+                    ) : (
+                      <>
+                        <Wallet className="h-4 w-4" />
+                        <p className="truncate font-bold">{displayName}</p>
+                      </>
+                    )}
+                    <Menu size={20} />
+                  </Button>
+                  {isDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-64 bg-gray-800 shadow-lg rounded-md overflow-hidden z-50">
+                      {/* Wallet Info */}
+                      <div className="border-b border-muted-light p-3">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Wallet className="h-4 w-4 text-purple-400" />
+                          <span className="text-sm font-medium text-gray-300">Connected Wallet</span>
                         </div>
+                        <Button
+                          variant="ghost"
+                          className="px-2 py-1 hover:bg-muted-light w-full justify-start text-sm"
+                          onClick={() => handleCopy(walletAddress)}
+                        >
+                          {copied ? (
+                            <Check size={14} className="mr-2 text-green-500" />
+                          ) : (
+                            <Clipboard size={14} className="mr-2" />
+                          )}
+                          {abbreviateWalletAddress({
+                            address: walletAddress,
+                          })}
+                        </Button>
+                      </div>
 
+                      {/* Profile Section */}
+                      {mainUsername ? (
                         <Button
                           variant="ghost"
                           onClick={() => {
                             router.push(`/${mainUsername}`)
                             setIsDropdownOpen(false)
                           }}
-                          className="px-4 py-2 hover:bg-muted-light w-full"
+                          className="px-4 py-2 hover:bg-muted-light w-full justify-start"
                         >
                           <User size={16} className="mr-2" /> My Profile
                         </Button>
+                      ) : (
+                        <div className="p-3 border-b border-muted-light">
+                          <p className="text-sm text-gray-400 mb-2">No profile created yet</p>
+                          <CreateProfileContainer
+                            setIsProfileCreated={setIsProfileCreated}
+                            setProfileUsername={setProfileUsername}
+                          />
+                        </div>
+                      )}
 
-                        <Button
-                          variant="ghost"
-                          className="px-4 py-2 hover:bg-muted-light w-full !text-red-500"
-                          onClick={logout}
-                        >
-                          <LogOut size={16} className="mr-2" /> Log Out
-                        </Button>
-                      </div>
-                    )}
-                  </div>
+                      {/* Disconnect */}
+                      <Button
+                        variant="ghost"
+                        className="px-4 py-2 hover:bg-muted-light w-full justify-start !text-red-500"
+                        onClick={handleLogout}
+                        disabled={isLoggingOut}
+                      >
+                        <LogOut size={16} className="mr-2" /> 
+                        {isLoggingOut ? 'Disconnecting...' : 'Disconnect Wallet'}
+                      </Button>
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <CreateProfileContainer
-                  setIsProfileCreated={setIsProfileCreated}
-                  setProfileUsername={setProfileUsername}
-                />
-              )
+              </div>
             ) : (
-              <Button
-                variant="ghost"
-                className='!text-green-500'
-                disabled={disableLogin}
-                onClick={() =>
-                  login({
-                    loginMethods: ['wallet'],
-                    walletChainType: 'ethereum-and-solana',
-                    disableSignup: false,
-                  })
-                }
-              >
-                <LogIn className="h-4 w-4 mr-2" /> Log in
-              </Button>
+              <div className="flex flex-col items-end gap-1">
+                <Button
+                  variant="ghost"
+                  className='!text-green-500'
+                  disabled={disableLogin}
+                  onClick={handleLogin}
+                >
+                  <LogIn className="h-4 w-4 mr-2" /> 
+                  {isLoggingOut ? 'Disconnecting...' : 'Connect Wallet'}
+                </Button>
+                {connectionError && (
+                  <div className="flex items-center gap-1 text-red-400 text-xs">
+                    <AlertCircle className="h-3 w-3" />
+                    {connectionError}
+                  </div>
+                )}
+              </div>
             )}
 
             <div className="flex items-center gap-2">

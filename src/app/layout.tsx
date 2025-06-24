@@ -1,4 +1,5 @@
 import { Header } from '@/components/common/header'
+import { ConnectionDebug } from '@/components/common/connection-debug'
 import { PrivyClientProvider } from '@/components/provider/PrivyClientProvider'
 import { ThemeProvider } from '@/components/theme-provider'
 import type { Metadata } from 'next'
@@ -33,6 +34,7 @@ export default function RootLayout({
             <Header />
             <Toaster />
             <div className="max-w-6xl mx-auto pt-12 pb-22">{children}</div>
+            <ConnectionDebug />
           </PrivyClientProvider>
         </ThemeProvider>
       </body>

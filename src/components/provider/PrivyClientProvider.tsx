@@ -12,10 +12,18 @@ export function PrivyClientProvider({
     <PrivyProvider
       appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID || ''}
       config={{
-        appearance: { walletChainType: 'solana-only' },
-        externalWallets: {
-          solana: { connectors: toSolanaWalletConnectors() },
+        appearance: { 
+          walletChainType: 'ethereum-and-solana',
+          theme: 'dark',
+          accentColor: '#8b5cf6',
+          showWalletLoginFirst: true,
         },
+        externalWallets: {
+          solana: { 
+            connectors: toSolanaWalletConnectors(),
+          },
+        },
+        loginMethods: ['wallet'],
       }}
     >
       {children}
