@@ -16,6 +16,7 @@ import {
   BookOpen,
   Wallet,
   AlertCircle,
+  Sparkles,
 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -86,7 +87,7 @@ export function Header() {
       
       await login({
         loginMethods: ['wallet'],
-        walletChainType: 'ethereum-and-solana',
+        walletChainType: 'solana-only',
         disableSignup: false,
       })
       
@@ -143,12 +144,20 @@ export function Header() {
     <>
       <div className="border-b-1 border-muted flex items-center justify-center w-full p-3">
         <div className="max-w-6xl w-full flex items-center justify-between">
-          <Link 
-            href="/" 
-            className="hover:opacity-80"
-          >
-            <h1 className="text-2xl font-bold">Builders Mansion</h1>
-          </Link>
+          <div className="flex items-center space-x-2">
+            <a href="https://solana.com" target="_blank" rel="noopener noreferrer">
+              <Image src="/logos/solana.png" alt="Solana Logo" width={32} height={32} style={{height:'auto'}} className="object-contain shadow-md bg-transparent" />
+            </a>
+            <a href="https://superteam.fun/fr" target="_blank" rel="noopener noreferrer">
+              <Image src="/logos/solana_superteam_france_logo.jpeg" alt="Superteam France Logo" width={32} height={32} className="rounded-full" />
+            </a>
+            <Link 
+              href="/" 
+              className="hover:opacity-80"
+            >
+              <h1 className="text-2xl font-bold">Builders Mansion</h1>
+            </Link>
+          </div>
 
           <nav className="flex items-center space-x-8">
             <Link
@@ -168,19 +177,11 @@ export function Header() {
             </Link>
 
             <Link
-              href="/token"
+              href="/features"
               className="flex items-center hover:opacity-80 transition-opacity"
             >
-              <Coins className="h-4 w-4 mr-2" />
-              <span>Tokens</span>
-            </Link>
-
-            <Link
-              href="/trade"
-              className="flex items-center hover:opacity-80 transition-opacity"
-            >
-              <RefreshCw className="h-4 w-4 mr-2" />
-              <span>Swap</span>
+              <Sparkles className="h-4 w-4 mr-2" />
+              <span>Features</span>
             </Link>
 
             {ready && authenticated ? (
